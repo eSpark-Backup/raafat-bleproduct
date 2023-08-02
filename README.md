@@ -5,7 +5,7 @@ Develop a BLE project that includes PCB design as well as the firmware. Componen
 - Input of external 5 analog sensors through connector with 5V voltage output.
 - Gyro, Accelerometer and Temperature sensor, 10 DOF MEMS IMU, all in one IC
 - Battery operated, EEMB LIR2450 Rechargeable Battery 3.7V Li-ion Coin (not finialized).
-- Battery charging circuit with micro USB port.
+- Battery charging circuit with Type-C USB port.
 - RGB LED
 - Power Switch
 - Header TX RX for debugging
