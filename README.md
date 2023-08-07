@@ -2,9 +2,9 @@
 
 Develop a BLE project that includes PCB design as well as the firmware. Components of the design include:
 
-- Input of external 5 analog sensors through connector with 5V voltage output. The altogether current will be 150mA. The analog connector will be 3 pads, the larger possible the better.
+- Input of external 5 analog sensors through connector with 5V voltage output. The altogether current will be 150mA. The analog connector will be 7 pads and should be the larger the better.
     - VCC (5V)
-    - Signal (0.2V - 2.8V)
+    - Signal (0.2V - 2.8V) (INPUT1, INPUT2, INPUT3, INPUT4, INPUT5)
     - GND
 - Gyro, Accelerometer and Temperature sensor, 10 DOF MEMS IMU, all in one IC
 - Battery operated, EEMB LIR2450 Rechargeable Battery 3.7V Li-ion Coin (not finialized).
