@@ -1,0 +1,619 @@
+*************************************************************
+FileName = BLE_product-v1.0(Updated Power Jack).GBR
+AutoAperture = True
+*************************************************************
+Generating : Layer 3
+      File : BLE_product-v1.0(Updated Power Jack).G2
+
+    Adding Layer      : Layer 3
+
+    Adding Layer      : Multi-Layer
+
+
+Used DCodes :
+    D10
+    D12
+    D13
+    D45
+    D56
+    D57
+    D110
+    D111
+    D112
+    D113
+    D114
+    D115
+*************************************************************
+
+*************************************************************
+Generating : Bottom Layer
+      File : BLE_product-v1.0(Updated Power Jack).GBL
+
+    Adding Layer      : Bottom Layer
+
+    Adding Layer      : Multi-Layer
+
+
+Used DCodes :
+    D10
+    D12
+    D13
+    D21
+    D31
+    D32
+    D35
+    D45
+    D56
+    D57
+    D110
+    D116
+    D117
+    D118
+    D119
+    D120
+    D121
+    D122
+    D123
+    D124
+    D125
+    D126
+    D127
+    D128
+    D129
+    D130
+    D131
+    D132
+    D133
+    D134
+    D135
+    D136
+    D137
+    D138
+    D139
+    D140
+    D141
+    D142
+    D143
+    D144
+    D145
+    D146
+    D147
+    D148
+    D149
+    D150
+    D151
+    D152
+    D153
+    D154
+    D155
+    D156
+    D157
+    D158
+    D159
+    D160
+    D161
+    D162
+    D163
+    D164
+    D165
+    D166
+    D167
+    D168
+    D169
+    D170
+    D171
+    D172
+    D173
+    D174
+    D175
+    D176
+    D177
+    D178
+    D179
+    D180
+    D181
+    D182
+    D183
+    D184
+    D185
+    D186
+    D187
+    D188
+    D189
+    D190
+    D191
+*************************************************************
+
+*************************************************************
+Generating : Bottom Pad Master
+      File : BLE_product-v1.0(Updated Power Jack).GPB
+
+    Adding Layer      : Bottom Layer
+
+    Adding Layer      : Multi-Layer
+
+
+Used DCodes :
+    D21
+    D31
+    D32
+    D35
+    D116
+    D117
+    D118
+    D119
+    D120
+    D121
+    D122
+    D123
+    D124
+    D125
+    D126
+    D127
+    D128
+    D129
+*************************************************************
+
+*************************************************************
+Generating : Top Pad Master
+      File : BLE_product-v1.0(Updated Power Jack).GPT
+
+    Adding Layer      : Top Layer
+
+    Adding Layer      : Multi-Layer
+
+
+Used DCodes :
+    D19
+    D20
+    D21
+    D22
+    D23
+    D24
+    D25
+    D26
+    D27
+    D28
+    D29
+    D30
+    D31
+    D32
+    D33
+    D34
+    D35
+*************************************************************
+
+*************************************************************
+Generating : Bottom Paste
+      File : BLE_product-v1.0(Updated Power Jack).GBP
+
+    Adding Layer      : Bottom Paste
+
+    Adding Layer      : Bottom Layer
+
+    Adding Layer      : Multi-Layer
+
+
+Used DCodes :
+    D21
+    D31
+    D32
+    D35
+    D116
+    D117
+    D118
+    D119
+    D120
+    D121
+    D122
+    D123
+    D124
+    D125
+    D126
+    D127
+    D128
+*************************************************************
+
+*************************************************************
+Generating : Bottom Overlay
+      File : BLE_product-v1.0(Updated Power Jack).GBO
+
+    Adding Layer      : Bottom Overlay
+
+
+Used DCodes :
+    D12
+    D13
+    D57
+*************************************************************
+
+*************************************************************
+Generating : Board Outline
+      File : BLE_product-v1.0(Updated Power Jack).GM2
+
+    Adding Layer      : Board Outline
+
+
+Used DCodes :
+    D12
+*************************************************************
+
+*************************************************************
+Generating : Layer 2
+      File : BLE_product-v1.0(Updated Power Jack).G1
+
+    Adding Layer      : Layer 2
+
+    Adding Layer      : Multi-Layer
+
+
+Used DCodes :
+    D13
+    D45
+    D56
+    D57
+    D108
+    D109
+*************************************************************
+
+*************************************************************
+Generating : Top Layer
+      File : BLE_product-v1.0(Updated Power Jack).GTL
+
+    Adding Layer      : Top Layer
+
+    Adding Layer      : Multi-Layer
+
+
+Used DCodes :
+    D10
+    D12
+    D13
+    D19
+    D20
+    D21
+    D22
+    D23
+    D24
+    D25
+    D26
+    D27
+    D28
+    D29
+    D30
+    D31
+    D32
+    D33
+    D34
+    D35
+    D45
+    D56
+    D57
+    D58
+    D59
+    D60
+    D61
+    D62
+    D63
+    D64
+    D65
+    D66
+    D67
+    D68
+    D69
+    D70
+    D71
+    D72
+    D73
+    D74
+    D75
+    D76
+    D77
+    D78
+    D79
+    D80
+    D81
+    D82
+    D83
+    D84
+    D85
+    D86
+    D87
+    D88
+    D89
+    D90
+    D91
+    D92
+    D93
+    D94
+    D95
+    D96
+    D97
+    D98
+    D99
+    D100
+    D101
+    D102
+    D103
+    D104
+    D105
+    D106
+    D107
+*************************************************************
+
+*************************************************************
+Generating : Top Overlay
+      File : BLE_product-v1.0(Updated Power Jack).GTO
+
+    Adding Layer      : Top Overlay
+
+
+Used DCodes :
+    D10
+    D11
+    D12
+    D13
+    D14
+*************************************************************
+
+*************************************************************
+Generating : Top Paste
+      File : BLE_product-v1.0(Updated Power Jack).GTP
+
+    Adding Layer      : Top Paste
+
+    Adding Layer      : Top Layer
+
+    Adding Layer      : Multi-Layer
+
+
+Used DCodes :
+    D14
+    D15
+    D16
+    D17
+    D18
+    D19
+    D20
+    D21
+    D22
+    D23
+    D24
+    D25
+    D26
+    D27
+    D28
+    D29
+    D30
+    D31
+    D32
+    D33
+    D34
+    D35
+*************************************************************
+
+*************************************************************
+Generating : Top Solder
+      File : BLE_product-v1.0(Updated Power Jack).GTS
+
+    Adding Layer      : Top Solder
+
+    Adding Layer      : Top Layer
+
+    Adding Layer      : Multi-Layer
+
+
+Used DCodes :
+    D36
+    D37
+    D38
+    D39
+    D40
+    D41
+    D42
+    D43
+    D44
+    D45
+    D46
+    D47
+    D48
+    D49
+    D50
+    D51
+    D52
+    D53
+    D54
+    D55
+*************************************************************
+
+*************************************************************
+Generating : Bottom Solder
+      File : BLE_product-v1.0(Updated Power Jack).GBS
+
+    Adding Layer      : Bottom Solder
+
+    Adding Layer      : Bottom Layer
+
+    Adding Layer      : Multi-Layer
+
+
+Used DCodes :
+    D38
+    D48
+    D49
+    D52
+    D53
+    D54
+    D55
+    D192
+    D193
+    D194
+    D195
+    D196
+    D197
+    D198
+    D199
+    D200
+    D201
+    D202
+    D203
+    D204
+*************************************************************
+
+*************************************************************
+Generating : Drill Drawing
+      File : BLE_product-v1.0(Updated Power Jack).GD1
+
+    Adding Drill Pair : Top Layer-Bottom Layer
+
+    Adding Layer      : Drill Drawing
+
+
+Used DCodes :
+    D205
+    D206
+*************************************************************
+
+*************************************************************
+Generating : Drill Drawing
+      File : BLE_product-v1.0(Updated Power Jack).GD2
+
+    Adding Drill Pair : Top Layer-Layer 2
+
+    Adding Layer      : Drill Drawing
+
+
+Used DCodes :
+    D205
+*************************************************************
+
+*************************************************************
+Generating : Drill Drawing
+      File : BLE_product-v1.0(Updated Power Jack).GD3
+
+    Adding Drill Pair : Top Layer-Layer 3
+
+    Adding Layer      : Drill Drawing
+
+
+Used DCodes :
+    D205
+*************************************************************
+
+*************************************************************
+Generating : Drill Drawing
+      File : BLE_product-v1.0(Updated Power Jack).GD4
+
+    Adding Drill Pair : Layer 2-Layer 3
+
+    Adding Layer      : Drill Drawing
+
+
+Used DCodes :
+    D205
+*************************************************************
+
+*************************************************************
+Generating : Drill Drawing
+      File : BLE_product-v1.0(Updated Power Jack).GD5
+
+    Adding Drill Pair : Layer 2-Bottom Layer
+
+    Adding Layer      : Drill Drawing
+
+
+Used DCodes :
+    D205
+*************************************************************
+
+*************************************************************
+Generating : Drill Drawing
+      File : BLE_product-v1.0(Updated Power Jack).GD6
+
+    Adding Drill Pair : Layer 3-Bottom Layer
+
+    Adding Layer      : Drill Drawing
+
+
+Used DCodes :
+    D205
+*************************************************************
+
+*************************************************************
+Generating : Drill Guide
+      File : BLE_product-v1.0(Updated Power Jack).GG1
+
+    Adding Drill Pair : Top Layer-Bottom Layer
+
+    Adding Layer      : Drill Guide
+
+
+Used DCodes :
+    D205
+*************************************************************
+
+*************************************************************
+Generating : Drill Guide
+      File : BLE_product-v1.0(Updated Power Jack).GG2
+
+    Adding Drill Pair : Top Layer-Layer 2
+
+    Adding Layer      : Drill Guide
+
+
+Used DCodes :
+    D205
+*************************************************************
+
+*************************************************************
+Generating : Drill Guide
+      File : BLE_product-v1.0(Updated Power Jack).GG3
+
+    Adding Drill Pair : Top Layer-Layer 3
+
+    Adding Layer      : Drill Guide
+
+
+Used DCodes :
+    D205
+*************************************************************
+
+*************************************************************
+Generating : Drill Guide
+      File : BLE_product-v1.0(Updated Power Jack).GG4
+
+    Adding Drill Pair : Layer 2-Layer 3
+
+    Adding Layer      : Drill Guide
+
+
+Used DCodes :
+    D205
+*************************************************************
+
+*************************************************************
+Generating : Drill Guide
+      File : BLE_product-v1.0(Updated Power Jack).GG5
+
+    Adding Drill Pair : Layer 2-Bottom Layer
+
+    Adding Layer      : Drill Guide
+
+
+Used DCodes :
+    D205
+*************************************************************
+
+*************************************************************
+Generating : Drill Guide
+      File : BLE_product-v1.0(Updated Power Jack).GG6
+
+    Adding Drill Pair : Layer 3-Bottom Layer
+
+    Adding Layer      : Drill Guide
+
+
+Used DCodes :
+    D205
+*************************************************************
+
