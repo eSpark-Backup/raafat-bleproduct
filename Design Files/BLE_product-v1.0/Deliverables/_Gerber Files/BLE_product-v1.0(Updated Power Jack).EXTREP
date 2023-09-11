@@ -1,5 +1,5 @@
 ------------------------------------------------------------------------------------------
-Gerber File Extension Report For: BLE_product-v1.0(Updated Power Jack).GBR   23/08/2023  9:35:44 pm
+Gerber File Extension Report For: BLE_product-v1.0(Updated Power Jack).GBR   11/09/2023  4:45:02 pm
 ------------------------------------------------------------------------------------------
 
 
@@ -24,11 +24,9 @@ Layer Extension     Layer Description
 .GD3                Drill Drawing                           
 .GD4                Drill Drawing                           
 .GD5                Drill Drawing                           
-.GD6                Drill Drawing                           
 .GG1                Drill Guide                             
 .GG2                Drill Guide                             
 .GG3                Drill Guide                             
 .GG4                Drill Guide                             
 .GG5                Drill Guide                             
-.GG6                Drill Guide                             
 ------------------------------------------------------------------------------------------
