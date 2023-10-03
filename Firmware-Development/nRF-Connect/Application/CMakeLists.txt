@@ -7,7 +7,9 @@ project(ADC)
 # project(NONE)
 
 target_sources(app PRIVATE src/main.c
-                            src/BLE.c)
+                            src/BLE.c
+                            src/cJSON.c
+                            )
 
                             # NORDIC SDK APP END
 zephyr_library_include_directories(.)

@@ -20,11 +20,11 @@
 #include <zephyr/bluetooth/gap.h>
 #include <zephyr/bluetooth/uuid.h>
 #include <zephyr/bluetooth/conn.h>
-
+#include"cJSON.h"
 #include <dk_buttons_and_leds.h>
 /* STEP 7 - Include the header file of MY LBS customer service */
 #include "BLE.h"
-char json[150]; 
+char json[100]; 
 
 static struct bt_le_adv_param *adv_param = BT_LE_ADV_PARAM(
 	(BT_LE_ADV_OPT_CONNECTABLE |
@@ -164,8 +164,6 @@ int main(void)
 		int blink_status = 0;
 
 
-	LOG_INF("Starting Lesson 4 - Exercise 1 \n");
-    printk("hhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhh\n");
 	err = dk_leds_init();
 	if (err) {
 		LOG_ERR("LEDs init failed (err %d)\n", err);
@@ -246,13 +244,20 @@ int main(void)
 				printk(" = %"PRId32" mV\n", val_mv[i]);
 			}
 			
-			snprintk(json, sizeof(json), "{\"AIN0\": %d, \"AIN1\": %d, \"AIN2\": %d, \"AIN3\": %d, \"AIN4\": %d, \"AIN5\": %d, \"AIN6\": %d, \"AIN7\": %d}",
-																																			val_mv[0] , val_mv[1],
-																																			val_mv[2], val_mv[3],
-																																			val_mv[4], val_mv[5],
-																																			val_mv[6], val_mv[7]
-																																			);
-			printk("JSON: %s\n", json);
+			cJSON * root = cJSON_CreateArray();
+
+			for (int i =0 ; i < 8 ; i++)
+			{
+				cJSON * val_mv_json = cJSON_CreateNumber(val_mv[0]);
+                cJSON_AddItemToArray(root ,val_mv_json);
+			}
+
+			char*cjson = cJSON_Print(root);
+			snprintk(json,sizeof(json),"{adcValue :%s }",cjson);
+			printk("%s\n", json);
+			cJSON_Delete(root);
+			free(cjson);
+			k_sleep(K_MSEC(20));
 		}
 
 		k_sleep(K_MSEC(1000));
