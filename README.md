@@ -16,3 +16,12 @@ Develop a BLE project that includes PCB design as well as the firmware. Componen
 - Battery status detection and percentage detection
 - Use smallest size components as a PCB size of 9mm X 9mm needs to be acheived.
 - For MCU we can use NRF51822 (suggestions welcome)
+
+## Unit Testing v1.1 (Power-Jack-Moved)
+### Number of Assmebled Board received: 
+### Number of Bare Boards received:
+### Details of peripherals received: 
+
+| S.No       | Status (working / faulty) | Remarks (Cause of fault) | Location (PK / Client) | Board Images (front / back / peripherals) |
+| ----------- | ----------- |-------------| --- | --- |
+| 1      | Working |  | PK | [Board Images](https://drive.google.com/drive/folders/1n3w0knsRiWI5llz53cg9I2Modn-9HDNM?usp=sharing) |
