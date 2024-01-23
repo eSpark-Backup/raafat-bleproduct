@@ -18,9 +18,9 @@ Develop a BLE project that includes PCB design as well as the firmware. Componen
 - For MCU we can use NRF51822 (suggestions welcome)
 
 ## Unit Testing v1.1 (Power-Jack-Moved)
-### Number of Assmebled Board received: 
-### Number of Bare Boards received:
-### Details of peripherals received: 
+### Number of Assmebled Board received:  10 Boards 
+### Number of Bare Boards received:  Nil
+### Details of peripherals received: Nil
 
 | S.No       | Status (working / faulty) | Remarks (Cause of fault) | Location (PK / Client) | Board Images (front / back / peripherals) |
 | ----------- | ----------- |-------------| --- | --- |
