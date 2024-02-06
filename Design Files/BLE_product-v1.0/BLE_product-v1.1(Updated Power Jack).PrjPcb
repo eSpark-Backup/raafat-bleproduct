@@ -168,7 +168,7 @@ GenerateClassCluster=0
 DocumentUniqueId=
 
 [Document8]
-DocumentPath=BLE_product-v1.0(Updated Power Jack).PcbDoc
+DocumentPath=BLE_product-v1.1(Updated Power Jack).PcbDoc
 AnnotationEnabled=1
 AnnotateStartValue=1
 AnnotationIndexControlEnabled=0
