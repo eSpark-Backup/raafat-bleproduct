@@ -14,11 +14,6 @@ extern "C" {
 
 #include <zephyr/types.h>
 
-//TODO: KConfig
-#define CONFIG_BT_RAAFAT_LOG_LEVEL 4
-#define CONFIG_BT_RAAFAT_POLL_ANALOG
-#define CONFIG_BT_RAAFAT_SECURITY_ENABLED
-
 /** @brief Raafat Service UUID. */
 #define BT_UUID_RAAFAT_VAL \
 	BT_UUID_128_ENCODE(0x00001523, 0x1212, 0xefde, 0x1523, 0x785feabcd123)

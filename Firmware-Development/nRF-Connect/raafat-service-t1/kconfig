@@ -1,0 +1,30 @@
+#
+# Copyright (c) 2018 Nordic Semiconductor
+#
+# SPDX-License-Identifier: LicenseRef-Nordic-5-Clause
+#
+
+source "Kconfig.zephyr"
+
+menu "Raafat Analog Service"
+
+config BT_RAAFAT_LOG_LEVEL
+
+	int "Raafat Log level"
+	default 4
+	help
+	  set log level for raafat's logs
+
+config BT_RAAFAT_POLL_ANALOG
+	bool "Enable Poll Analog"
+	default y
+	help
+	  Allows user to fetch data from BLE Device
+
+
+config BT_RAAFAT_SECURITY_ENABLED
+	bool "Enable Security for BLE Service"
+	default y
+	help
+	  Enable security for better pairing and authentication
+endmenu
