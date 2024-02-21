@@ -95,7 +95,7 @@ int bt_raafat_init(struct bt_raafat_cb *callbacks);
  * @retval 0 If the operation was successful.
  *           Otherwise, a (negative) error code is returned.
  */
-int bt_raafat_send_AN1_value(uint8_t analog_value, enum analog_callback_e cb_index);
+int bt_raafat_send_analog_value(uint8_t analog_value, enum analog_callback_e cb_index);
 
 #ifdef __cplusplus
 }

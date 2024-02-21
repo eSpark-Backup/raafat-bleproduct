@@ -200,7 +200,7 @@ int main(void)
 
 	err = bt_raafat_init(&raafat_callbacs);
 	if (err) {
-		printk("Failed to init LBS (err:%d)\n", err);
+		printk("Failed to init Raafat Analog BLE Service (err:%d)\n", err);
 		return 0;
 	}
 
@@ -215,16 +215,15 @@ int main(void)
 
 	for (;;) {
 		printk("Raafat Hello World!\n");
-
-                send_all_analog_values();
+		send_all_analog_values();
 		k_sleep(K_SECONDS(1));
 	}
 }
 
 void send_all_analog_values()
 {
-        bt_raafat_send_AN1_value(count++,      ANALOG_1);  
-        bt_raafat_send_AN1_value(count+=3,      ANALOG_2);  
-        bt_raafat_send_AN1_value(count+=7,      ANALOG_3);  
-        bt_raafat_send_AN1_value(count+=10,      ANALOG_4);  
+        bt_raafat_send_analog_value(count++,      ANALOG_1);  
+        bt_raafat_send_analog_value(count+=3,      ANALOG_2);  
+        bt_raafat_send_analog_value(count+=7,      ANALOG_3);  
+        bt_raafat_send_analog_value(count+=10,      ANALOG_4);  
 }

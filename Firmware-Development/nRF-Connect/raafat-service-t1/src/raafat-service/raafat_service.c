@@ -24,6 +24,7 @@ LOG_MODULE_REGISTER(bt_raafat, CONFIG_BT_RAAFAT_LOG_LEVEL);
 
 static bool     notify_enabled;
 static struct 	bt_raafat_cb	raafat_cb;
+
 static uint8_t 	AN1_pin_value;
 static uint8_t 	AN2_pin_value;
 static uint8_t 	AN3_pin_value;
@@ -36,7 +37,7 @@ static void raafatlc_ccc_cfg_changed(const struct bt_gatt_attr *attr,
 }
 
 #ifdef CONFIG_BT_RAAFAT_POLL_ANALOG
-static ssize_t read_AN1(struct bt_conn *conn,
+static ssize_t read_analog(struct bt_conn *conn,
 			  const struct bt_gatt_attr *attr,
 			  void *buf,
 			  uint16_t len,
@@ -48,6 +49,7 @@ static ssize_t read_AN1(struct bt_conn *conn,
 		(void *)conn);
 
 	if (raafat_cb.AN1_read_cb) {
+		/*read each value*/
 		AN1_pin_value = raafat_cb.AN1_read_cb();
 		AN2_pin_value = raafat_cb.AN2_read_cb();
 		AN3_pin_value = raafat_cb.AN3_read_cb();
@@ -58,8 +60,6 @@ static ssize_t read_AN1(struct bt_conn *conn,
 
 	return 0;
 }
-
-//same of other pins an2,an3,an4 //todo:
 #endif
 
 /* Raafat Analog Service Declaration */
@@ -68,7 +68,7 @@ BT_GATT_PRIMARY_SERVICE(BT_UUID_RAAFAT),
 #ifdef CONFIG_BT_RAAFAT_POLL_ANALOG
 	BT_GATT_CHARACTERISTIC(BT_UUID_RAAFAT_AN1,
 			       BT_GATT_CHRC_READ | BT_GATT_CHRC_NOTIFY,
-			       BT_GATT_PERM_READ, read_AN1, NULL,
+			       BT_GATT_PERM_READ, read_analog, NULL,
 			       &AN1_pin_value),
 
 	BT_GATT_CCC(raafatlc_ccc_cfg_changed,
@@ -76,7 +76,7 @@ BT_GATT_PRIMARY_SERVICE(BT_UUID_RAAFAT),
 
 	BT_GATT_CHARACTERISTIC(BT_UUID_RAAFAT_AN2,
 			       BT_GATT_CHRC_READ | BT_GATT_CHRC_NOTIFY,
-			       BT_GATT_PERM_READ, read_AN1, NULL,
+			       BT_GATT_PERM_READ, read_analog, NULL,
 			       &AN2_pin_value),
 
 	BT_GATT_CCC(raafatlc_ccc_cfg_changed,
@@ -84,7 +84,7 @@ BT_GATT_PRIMARY_SERVICE(BT_UUID_RAAFAT),
 
 	BT_GATT_CHARACTERISTIC(BT_UUID_RAAFAT_AN3,
 			       BT_GATT_CHRC_READ | BT_GATT_CHRC_NOTIFY,
-			       BT_GATT_PERM_READ, read_AN1, NULL,
+			       BT_GATT_PERM_READ, read_analog, NULL,
 			       &AN3_pin_value),
 
 	BT_GATT_CCC(raafatlc_ccc_cfg_changed,
@@ -92,7 +92,7 @@ BT_GATT_PRIMARY_SERVICE(BT_UUID_RAAFAT),
 
 	BT_GATT_CHARACTERISTIC(BT_UUID_RAAFAT_AN4,
 			       BT_GATT_CHRC_READ | BT_GATT_CHRC_NOTIFY,
-			       BT_GATT_PERM_READ, read_AN1, NULL,
+			       BT_GATT_PERM_READ, read_analog, NULL,
 			       &AN4_pin_value),
 
 	BT_GATT_CCC(raafatlc_ccc_cfg_changed,
@@ -119,7 +119,7 @@ int bt_raafat_init(struct bt_raafat_cb *callbacks)
 	return 0;
 }
 
-int bt_raafat_send_AN1_value(uint8_t analog_value, enum analog_callback_e cb_index)
+int bt_raafat_send_analog_value(uint8_t analog_value, enum analog_callback_e cb_index)
 {
 	int err = 0;
 	if (!notify_enabled) {
