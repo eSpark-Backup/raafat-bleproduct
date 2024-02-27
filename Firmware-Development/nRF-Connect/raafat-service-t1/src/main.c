@@ -2,10 +2,10 @@
 #include <stddef.h>
 #include <string.h>
 #include <errno.h>
-#include <zephyr/sys/printk.h>
 #include <zephyr/sys/byteorder.h>
 #include <zephyr/kernel.h>
 #include <zephyr/drivers/gpio.h>
+#include <zephyr/sys/printk.h>
 #include <zephyr/drivers/adc.h>
 #include <hal/nrf_gpio.h>
 #include <soc.h>
@@ -19,6 +19,10 @@
 #include "raafat_service.h"
 
 #include <zephyr/settings/settings.h>
+
+#define LOG_LEVEL 4
+#include <zephyr/logging/log.h>
+LOG_MODULE_REGISTER(main);
 
 #define DEVICE_NAME             CONFIG_BT_DEVICE_NAME
 #define DEVICE_NAME_LEN         (sizeof(DEVICE_NAME) - 1)
