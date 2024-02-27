@@ -17,18 +17,124 @@
 #include <zephyr/bluetooth/conn.h>
 #include <zephyr/bluetooth/uuid.h>
 #include <zephyr/bluetooth/gatt.h>
+#include <zephyr/settings/settings.h>
 #include "./raafat_service.h"
 #include <zephyr/logging/log.h>
 
 LOG_MODULE_REGISTER(bt_raafat, CONFIG_BT_RAAFAT_LOG_LEVEL);
 
 static bool     notify_enabled;
-static struct 	bt_raafat_cb	raafat_cb;
 
-static uint8_t 	AN1_pin_value;
-static uint8_t 	AN2_pin_value;
-static uint8_t 	AN3_pin_value;
-static uint8_t 	AN4_pin_value;
+// static uint8_t 	AN1_pin_value;
+// static uint8_t 	AN2_pin_value;
+// static uint8_t 	AN3_pin_value;
+// static uint8_t 	AN4_pin_value;
+
+#define DEVICE_NAME             CONFIG_BT_DEVICE_NAME
+#define DEVICE_NAME_LEN         (sizeof(DEVICE_NAME) - 1)
+
+static const struct bt_data ad[] = {
+	BT_DATA_BYTES(BT_DATA_FLAGS, (BT_LE_AD_GENERAL | BT_LE_AD_NO_BREDR)),
+	BT_DATA(BT_DATA_NAME_COMPLETE, DEVICE_NAME, DEVICE_NAME_LEN),
+};
+
+static const struct bt_data sd[] = {
+	BT_DATA_BYTES(BT_DATA_UUID128_ALL, BT_UUID_RAAFAT_VAL),
+};
+
+/* Connect and disconnect callbacks */
+static void connected(struct bt_conn *conn, uint8_t err)
+{
+	if (err) {
+		printk("Connection failed (err %u)\n", err);
+		return;
+	}
+
+	printk("Connected\n");
+
+}
+
+static void disconnected(struct bt_conn *conn, uint8_t reason)
+{
+	printk("Disconnected (reason %u)\n", reason);
+
+}
+
+#ifdef CONFIG_BT_RAAFAT_SECURITY_ENABLED
+static void security_changed(struct bt_conn *conn, bt_security_t level,
+			     enum bt_security_err err)
+{
+	char addr[BT_ADDR_LE_STR_LEN];
+
+	bt_addr_le_to_str(bt_conn_get_dst(conn), addr, sizeof(addr));
+
+	if (!err) {
+		printk("Security changed: %s level %u\n", addr, level);
+	} else {
+		printk("Security failed: %s level %u err %d\n", addr, level,
+			err);
+	}
+}
+#endif
+
+BT_CONN_CB_DEFINE(conn_callbacks) = {
+	.connected        = connected,
+	.disconnected     = disconnected,
+#ifdef CONFIG_BT_RAAFAT_SECURITY_ENABLED
+	.security_changed = security_changed,
+#endif
+};
+
+#if defined(CONFIG_BT_RAAFAT_SECURITY_ENABLED)
+static void auth_passkey_display(struct bt_conn *conn, unsigned int passkey)
+{
+	char addr[BT_ADDR_LE_STR_LEN];
+
+	bt_addr_le_to_str(bt_conn_get_dst(conn), addr, sizeof(addr));
+
+	printk("Passkey for %s: %06u\n", addr, passkey);
+}
+
+static void auth_cancel(struct bt_conn *conn)
+{
+	char addr[BT_ADDR_LE_STR_LEN];
+
+	bt_addr_le_to_str(bt_conn_get_dst(conn), addr, sizeof(addr));
+
+	printk("Pairing cancelled: %s\n", addr);
+}
+
+static void pairing_complete(struct bt_conn *conn, bool bonded)
+{
+	char addr[BT_ADDR_LE_STR_LEN];
+
+	bt_addr_le_to_str(bt_conn_get_dst(conn), addr, sizeof(addr));
+
+	printk("Pairing completed: %s, bonded: %d\n", addr, bonded);
+}
+
+static void pairing_failed(struct bt_conn *conn, enum bt_security_err reason)
+{
+	char addr[BT_ADDR_LE_STR_LEN];
+
+	bt_addr_le_to_str(bt_conn_get_dst(conn), addr, sizeof(addr));
+
+	printk("Pairing failed conn: %s, reason %d\n", addr, reason);
+}
+
+static struct bt_conn_auth_cb conn_auth_callbacks = {
+	.passkey_display = auth_passkey_display,
+	.cancel = auth_cancel,
+};
+
+static struct bt_conn_auth_info_cb conn_auth_info_callbacks = {
+	.pairing_complete = pairing_complete,
+	.pairing_failed = pairing_failed
+};
+#else
+static struct bt_conn_auth_cb conn_auth_callbacks;
+static struct bt_conn_auth_info_cb conn_auth_info_callbacks;
+#endif
 
 static void raafatlc_ccc_cfg_changed(const struct bt_gatt_attr *attr,
 				  uint16_t value)
@@ -37,7 +143,7 @@ static void raafatlc_ccc_cfg_changed(const struct bt_gatt_attr *attr,
 }
 
 #ifdef CONFIG_BT_RAAFAT_POLL_ANALOG
-static ssize_t read_analog(struct bt_conn *conn,
+static ssize_t read_raafat_json_packet(struct bt_conn *conn,
 			  const struct bt_gatt_attr *attr,
 			  void *buf,
 			  uint16_t len,
@@ -48,87 +154,114 @@ static ssize_t read_analog(struct bt_conn *conn,
 	LOG_DBG("Attribute read, handle: %u, conn: %p", attr->handle,
 		(void *)conn);
 
-	if (raafat_cb.AN1_read_cb) {
-		/*read each value*/
-		AN1_pin_value = raafat_cb.AN1_read_cb();
-		AN2_pin_value = raafat_cb.AN2_read_cb();
-		AN3_pin_value = raafat_cb.AN3_read_cb();
-		AN4_pin_value = raafat_cb.AN4_read_cb();
-		return bt_gatt_attr_read(conn, attr, buf, len, offset, value,
-					 sizeof(*value));
-	}
+	return bt_gatt_attr_read(conn, attr, buf, len, offset, value, strlen(value));
 
-	return 0;
 }
 #endif
 
-/* Raafat Analog Service Declaration */
+
+/* Dummy json packet for tesitng BLE service */
+char raafat_json_data[600] = "{\
+  \"data\": {\
+    \"adc\": {\
+      \"values\": {\
+        \"adc1\": 123,\
+        \"adc2\": 456,\
+        \"adc3\": 789,\
+        \"adc4\": 321,\
+        \"adc5\": 654\
+      }\
+    },\
+    \"gyro\": {\
+      \"values\": {\
+        \"gyro_x\": 0.123,\
+        \"gyro_y\": -0.456,\
+        \"gyro_z\": 0.789\
+      }\
+    },\
+    \"accelerometer\": {\
+      \"values\": {\
+        \"accel_x\": 1.23,\
+        \"accel_y\": -2.34,\
+        \"accel_z\": 3.45\
+      }\
+    },\
+    \"magnetometer\": {\
+      \"values\": {\
+        \"mag_x\": -123,\
+        \"mag_y\": 456,\
+        \"mag_z\": -789\
+      }\
+    }\
+  }\
+}";
+
+/* Raafat BLE Service Declaration */
 BT_GATT_SERVICE_DEFINE(raafat_svc,
 BT_GATT_PRIMARY_SERVICE(BT_UUID_RAAFAT),
-#ifdef CONFIG_BT_RAAFAT_POLL_ANALOG
 	BT_GATT_CHARACTERISTIC(BT_UUID_RAAFAT_AN1,
 			       BT_GATT_CHRC_READ | BT_GATT_CHRC_NOTIFY,
-			       BT_GATT_PERM_READ, read_analog, NULL,
-			       &AN1_pin_value),
+			       BT_GATT_PERM_READ, read_raafat_json_packet, NULL,
+			       raafat_json_data),
 
 	BT_GATT_CCC(raafatlc_ccc_cfg_changed,
 		    BT_GATT_PERM_READ | BT_GATT_PERM_WRITE),
-
-	BT_GATT_CHARACTERISTIC(BT_UUID_RAAFAT_AN2,
-			       BT_GATT_CHRC_READ | BT_GATT_CHRC_NOTIFY,
-			       BT_GATT_PERM_READ, read_analog, NULL,
-			       &AN2_pin_value),
-
-	BT_GATT_CCC(raafatlc_ccc_cfg_changed,
-		    BT_GATT_PERM_READ | BT_GATT_PERM_WRITE),
-
-	BT_GATT_CHARACTERISTIC(BT_UUID_RAAFAT_AN3,
-			       BT_GATT_CHRC_READ | BT_GATT_CHRC_NOTIFY,
-			       BT_GATT_PERM_READ, read_analog, NULL,
-			       &AN3_pin_value),
-
-	BT_GATT_CCC(raafatlc_ccc_cfg_changed,
-		    BT_GATT_PERM_READ | BT_GATT_PERM_WRITE),
-
-	BT_GATT_CHARACTERISTIC(BT_UUID_RAAFAT_AN4,
-			       BT_GATT_CHRC_READ | BT_GATT_CHRC_NOTIFY,
-			       BT_GATT_PERM_READ, read_analog, NULL,
-			       &AN4_pin_value),
-
-	BT_GATT_CCC(raafatlc_ccc_cfg_changed,
-		    BT_GATT_PERM_READ | BT_GATT_PERM_WRITE),
-#else
-	BT_GATT_CHARACTERISTIC(BT_UUID_RAAFAT_AN1,
-			       BT_GATT_CHRC_READ | BT_GATT_CHRC_NOTIFY,
-			       BT_GATT_PERM_READ, NULL, NULL, NULL),
-#endif
-	// BT_GATT_CCC(raafatlc_ccc_cfg_changed,
-	// 	    BT_GATT_PERM_READ | BT_GATT_PERM_WRITE),
 );
 
-
-int bt_raafat_init(struct bt_raafat_cb *callbacks)
-{
-	if (callbacks) {
-		raafat_cb.AN1_read_cb    	= 	callbacks->AN1_read_cb;
-		raafat_cb.AN2_read_cb 		= 	callbacks->AN2_read_cb;
-		raafat_cb.AN3_read_cb 		= 	callbacks->AN3_read_cb;
-		raafat_cb.AN4_read_cb 		= 	callbacks->AN4_read_cb;
-	}
-
-	return 0;
-}
-
-int bt_raafat_send_analog_value(uint8_t analog_value, enum analog_callback_e cb_index)
+int raafat_service_send_json_packet()
 {
 	int err = 0;
 	if (!notify_enabled) {
 		return -EACCES;
 	}
+	const char *value = "Interval Notify Todo!";
 
-	err = bt_gatt_notify(NULL, &raafat_svc.attrs[cb_index], 
-			      &analog_value,
-			      sizeof(analog_value));
+	err = bt_gatt_notify(NULL, &raafat_svc.attrs[2], 
+			      value,
+			      strlen(value));
 
 	return err; 
+}
+
+int raafat_service_init()
+{
+	int err;
+	printk("Starting Bluetooth Peripheral Raafat \n");
+
+	if (IS_ENABLED(CONFIG_BT_RAAFAT_SECURITY_ENABLED)) {
+		err = bt_conn_auth_cb_register(&conn_auth_callbacks);
+		if (err) {
+			printk("Failed to register authorization callbacks.\n");
+			return 0;
+		}
+
+		err = bt_conn_auth_info_cb_register(&conn_auth_info_callbacks);
+		if (err) {
+			printk("Failed to register authorization info callbacks.\n");
+			return 0;
+		}
+	}
+
+	err = bt_enable(NULL);
+	if (err) {
+		printk("Bluetooth init failed (err %d)\n", err);
+		return 0;
+	}
+
+	printk("Bluetooth initialized\n");
+
+	if (IS_ENABLED(CONFIG_SETTINGS)) {
+		settings_load();
+	}
+
+	err = bt_le_adv_start(BT_LE_ADV_CONN, ad, ARRAY_SIZE(ad),
+			      sd, ARRAY_SIZE(sd));
+	if (err) {
+		printk("Advertising failed to start (err %d)\n", err);
+		return 0;
+	}
+
+	printk("Advertising successfully started\n");
+
+	return err;
 }
