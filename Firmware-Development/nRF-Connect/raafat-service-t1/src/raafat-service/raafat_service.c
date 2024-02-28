@@ -160,41 +160,8 @@ static ssize_t read_raafat_json_packet(struct bt_conn *conn,
 #endif
 
 
-/* Dummy json packet for tesitng BLE service */
-char raafat_json_data[600] = "{\
-  \"data\": {\
-    \"adc\": {\
-      \"values\": {\
-        \"adc1\": 123,\
-        \"adc2\": 456,\
-        \"adc3\": 789,\
-        \"adc4\": 321,\
-        \"adc5\": 654\
-      }\
-    },\
-    \"gyro\": {\
-      \"values\": {\
-        \"gyro_x\": 0.123,\
-        \"gyro_y\": -0.456,\
-        \"gyro_z\": 0.789\
-      }\
-    },\
-    \"accelerometer\": {\
-      \"values\": {\
-        \"accel_x\": 1.23,\
-        \"accel_y\": -2.34,\
-        \"accel_z\": 3.45\
-      }\
-    },\
-    \"magnetometer\": {\
-      \"values\": {\
-        \"mag_x\": -123,\
-        \"mag_y\": 456,\
-        \"mag_z\": -789\
-      }\
-    }\
-  }\
-}";
+/* json packet for tesitng BLE service */
+extern char raafat_json_data[600];
 
 /* Raafat BLE Service Declaration */
 BT_GATT_SERVICE_DEFINE(raafat_svc,
@@ -202,7 +169,7 @@ BT_GATT_PRIMARY_SERVICE(BT_UUID_RAAFAT),
 	BT_GATT_CHARACTERISTIC(BT_UUID_RAAFAT_AN1,
 			       BT_GATT_CHRC_READ | BT_GATT_CHRC_NOTIFY,
 			       BT_GATT_PERM_READ, read_raafat_json_packet, NULL,
-			       raafat_json_data),
+			       &raafat_json_data),
 
 	BT_GATT_CCC(raafatlc_ccc_cfg_changed,
 		    BT_GATT_PERM_READ | BT_GATT_PERM_WRITE),
@@ -210,6 +177,7 @@ BT_GATT_PRIMARY_SERVICE(BT_UUID_RAAFAT),
 
 int raafat_service_send_json_packet()
 {
+	printk("sending json packet!\n");
 	int err = 0;
 	if (!notify_enabled) {
 		return -EACCES;
@@ -218,7 +186,7 @@ int raafat_service_send_json_packet()
 
 	err = bt_gatt_notify(NULL, &raafat_svc.attrs[2], 
 			      value,
-			      strlen(value));
+			      20);
 
 	return err; 
 }

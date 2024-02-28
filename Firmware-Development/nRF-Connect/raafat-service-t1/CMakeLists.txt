@@ -8,5 +8,6 @@ target_sources(app PRIVATE src/main.c)
 zephyr_include_directories(src)
 
 add_subdirectory(src/raafat-service)
+add_subdirectory(src/cJSON)
 
 
