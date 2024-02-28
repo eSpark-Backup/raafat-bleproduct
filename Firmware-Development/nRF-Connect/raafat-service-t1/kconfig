@@ -27,4 +27,34 @@ config BT_RAAFAT_SECURITY_ENABLED
 	default y
 	help
 	  Enable security for better pairing and authentication
+
+config BT_RAAFAT_ENABLE_GYRO_PACKET
+	bool "Enable gyroscope data packet in BLE"
+	default y
+	help
+	  Enable the packet to be available in JSON
+
+config BT_RAAFAT_ENABLE_ACCEL_PACKET
+	bool "Enable Accelerometer data packet in BLE"
+	default y
+	help
+		Enable the packet to be available in JSON
+
+config BT_RAAFAT_ENABLE_MAGN_PACKET
+	bool "Enable Mangetometer data packet in BLE"
+	default y
+	help
+		Enable the packet to be available in JSON
+
+config BT_RAAFAT_ENABLE_NOTIFY
+	bool "Enable auto Notifification"
+	default y
+	help
+	  Enables notification in a given interval
+
+config RAAFAT_SERVICE_UPDATE_INTERVAL_SEC
+	int "Time duration in seconds"
+	default 1
+	help
+	  Defines Notfication interval in seconds
 endmenu

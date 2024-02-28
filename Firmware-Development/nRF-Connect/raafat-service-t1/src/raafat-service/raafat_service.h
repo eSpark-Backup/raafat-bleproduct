@@ -14,6 +14,8 @@ extern "C" {
 
 #include <zephyr/types.h>
 
+#define RAAFAT_SERVICE_JSON_PACKET_SIZE		300
+
 /** @brief Raafat Service UUID. */
 #define BT_UUID_RAAFAT_VAL \
 	BT_UUID_128_ENCODE(0x00001523, 0x1212, 0xefde, 0x1523, 0x785feabcd123)
@@ -55,6 +57,7 @@ extern "C" {
  */
 int raafat_service_send_json_packet();
 int raafat_service_init();
+char* raafat_service_get_json_packet_ptr();
 
 #ifdef __cplusplus
 }

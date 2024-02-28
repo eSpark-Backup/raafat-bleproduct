@@ -161,7 +161,7 @@ static ssize_t read_raafat_json_packet(struct bt_conn *conn,
 
 
 /* json packet for tesitng BLE service */
-extern char raafat_json_data[600];
+char* raafat_json_data[RAAFAT_SERVICE_JSON_PACKET_SIZE];
 
 /* Raafat BLE Service Declaration */
 BT_GATT_SERVICE_DEFINE(raafat_svc,
@@ -171,8 +171,10 @@ BT_GATT_PRIMARY_SERVICE(BT_UUID_RAAFAT),
 			       BT_GATT_PERM_READ, read_raafat_json_packet, NULL,
 			       &raafat_json_data),
 
+#ifdef CONFIG_BT_RAAFAT_ENABLE_NOTIFY
 	BT_GATT_CCC(raafatlc_ccc_cfg_changed,
 		    BT_GATT_PERM_READ | BT_GATT_PERM_WRITE),
+#endif			
 );
 
 int raafat_service_send_json_packet()
@@ -232,4 +234,9 @@ int raafat_service_init()
 	printk("Advertising successfully started\n");
 
 	return err;
+}
+
+char* raafat_service_get_json_packet_ptr()
+{
+	return raafat_json_data;
 }

@@ -14,6 +14,8 @@ typedef struct raafat_data_s{
 	int32_t an2; //0.4
 	int32_t an3; //0.5
 	int32_t an4; //0.28
+
+	char* raafat_json_packet;
 }raafat_data_t;
 
 #ifdef __cplusplus

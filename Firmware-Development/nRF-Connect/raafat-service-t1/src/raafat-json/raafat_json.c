@@ -1,8 +1,6 @@
 #include "raafat_json.h"
 #include "cJSON.h"
 
-char raafat_json_data[600];
-
 int raafat_json_stringify_data(raafat_data_t* new_raafat_data)
 {
     // Create root JSON object
@@ -25,7 +23,7 @@ int raafat_json_stringify_data(raafat_data_t* new_raafat_data)
     cJSON_AddNumberToObject(adc_values, "AN5", new_raafat_data->an4);
     cJSON_AddItemToObject(adc, "values", adc_values);
 
-    #ifdef RAAFAT_ENABLE_GYRO_PACKET
+    #ifdef CONFIG_BT_RAAFAT_ENABLE_GYRO_PACKET
     // Create gyro object
     cJSON *gyro = cJSON_CreateObject();
     cJSON_AddItemToObject(root, "gyro", gyro);
@@ -36,7 +34,7 @@ int raafat_json_stringify_data(raafat_data_t* new_raafat_data)
     cJSON_AddNumberToObject(gyro, "gyro_z", 0.789);
     #endif
 
-    #ifdef RAAFAT_ENABLE_ACCEL_PACKET
+    #ifdef CONFIG_BT_RAAFAT_ENABLE_ACCEL_PACKET
     // Create accelerometer object
     cJSON *accelerometer = cJSON_CreateObject();
     cJSON_AddItemToObject(root, "accelerometer", accelerometer);
@@ -47,7 +45,7 @@ int raafat_json_stringify_data(raafat_data_t* new_raafat_data)
     cJSON_AddNumberToObject(accelerometer, "accel_z", 3.45);
     #endif
 
-    #ifdef RAAFAT_ENABLE_MAGN_PACKET
+    #ifdef CONFIG_BT_RAAFAT_ENABLE_MAGN_PACKET
     // Create magnetometer object
     cJSON *magnetometer = cJSON_CreateObject();
     cJSON_AddItemToObject(root, "magnetometer", magnetometer);
@@ -63,7 +61,7 @@ int raafat_json_stringify_data(raafat_data_t* new_raafat_data)
 
     // Free memory
     cJSON_Delete(root);
-	snprintf(raafat_json_data,sizeof(raafat_json_data),"%s",json_packet);
-	printk("json packet : \n %s", raafat_json_data);
+	snprintf(new_raafat_data->raafat_json_packet, 300, "%s", json_packet);
+	printk("json packet : \n %s", new_raafat_data->raafat_json_packet);
     cJSON_free(json_packet);
 }
