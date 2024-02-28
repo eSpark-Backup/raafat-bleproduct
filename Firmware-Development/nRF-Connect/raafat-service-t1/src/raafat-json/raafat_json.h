@@ -7,7 +7,7 @@ extern "C" {
 
 #include "raafat_data.h"
 
-int raafat_json_stringify_data(raafat_data_t new_raafat_data);
+int raafat_json_stringify_data(raafat_data_t* new_raafat_data);
 
 #ifdef __cplusplus
 }

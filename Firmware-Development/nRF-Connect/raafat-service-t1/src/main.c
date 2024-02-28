@@ -13,6 +13,7 @@ LOG_MODULE_REGISTER(main);
 #include "raafat_service.h"
 #include "raafat_json.h"
 #include "raafat_data.h"
+#include "raafat_adc.h"
 
 /*Defines*/
 #define RAAFAT_GPIO_CLR_PWR NRF_GPIO_PIN_MAP(0,20)  //CLR POWER
@@ -30,17 +31,22 @@ int main(void)
 
     /* Raafat BLE service initialization*/
 	raafat_service_init();
+    raafat_adc_init();
 
     /* read adc, bmm150, bmi323 and store in raafat data before stringify*/
+    raafat_adc_read(&raafat_data);
 
     /* stringify inital raafat data*/
-    raafat_json_stringify_data(raafat_data);
+    raafat_json_stringify_data(&raafat_data);
 
 	for (;;) {
+        /* update json packet every interval */
+        raafat_adc_read(&raafat_data);
+
 		/* send json packet every second after getting new sensor values*/
         if(raafat_service_send_json_packet() != EACCES)
         {
-		    raafat_json_stringify_data(raafat_data);
+		    raafat_json_stringify_data(&raafat_data);
         }  
 		k_sleep(K_SECONDS(5));
 	}
