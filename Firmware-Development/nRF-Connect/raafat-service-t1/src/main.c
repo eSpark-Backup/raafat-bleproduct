@@ -16,7 +16,7 @@ LOG_MODULE_REGISTER(main);
 #include "raafat_service.h"
 
 /*Defines*/
-#define GPIO_TEST_PIN NRF_GPIO_PIN_MAP(0,20)  //CLR POWER
+#define RAAFAT_GPIO_CLR_PWR NRF_GPIO_PIN_MAP(0,20)  //CLR POWER
 
 /* raafat data structure */
 typedef struct raafat_data_s{
@@ -37,8 +37,8 @@ char raafat_json_data[600];
 int main(void)
 {
     /*config CLR_PWR as output and set high so that MCU powers up*/
-    nrf_gpio_cfg_output(GPIO_TEST_PIN);
-    nrf_gpio_pin_set(GPIO_TEST_PIN);
+    nrf_gpio_cfg_output(RAAFAT_GPIO_CLR_PWR);
+    nrf_gpio_pin_set(RAAFAT_GPIO_CLR_PWR);
 
 	printk("Raafat Hello World!\n");
 
