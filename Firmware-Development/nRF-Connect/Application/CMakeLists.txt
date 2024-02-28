@@ -4,3 +4,6 @@ find_package(Zephyr REQUIRED HINTS $ENV{ZEPHYR_BASE})
 project(test)
 
 target_sources(app PRIVATE src/main.c)
+
+# external modules
+add_subdirectory(src/raafat-rgb)
