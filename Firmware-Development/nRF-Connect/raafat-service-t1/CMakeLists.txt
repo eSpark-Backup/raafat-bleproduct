@@ -7,7 +7,11 @@ target_sources(app PRIVATE src/main.c)
 
 zephyr_include_directories(src)
 
+
+# External Modules
 add_subdirectory(src/raafat-service)
+add_subdirectory(src/raafat-json)
+add_subdirectory(src/raafat-data)
 add_subdirectory(src/cJSON)
 
 
