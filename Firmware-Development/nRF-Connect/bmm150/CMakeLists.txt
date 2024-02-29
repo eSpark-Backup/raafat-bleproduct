@@ -10,3 +10,7 @@ project(bmm150)
 
 FILE(GLOB app_sources src/*.c)
 target_sources(app PRIVATE ${app_sources})
+
+
+#external modules
+add_subdirectory(src/raafat-bmm150)
