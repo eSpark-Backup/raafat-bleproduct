@@ -90,3 +90,12 @@
 	// 	zephyr,resolution = <12>;
 	// };
 };
+
+&arduino_i2c {
+	status = "okay";
+
+	bmm150@10 {
+		compatible = "bosch,bmm150";
+		reg = <0x10>;
+	};
+};

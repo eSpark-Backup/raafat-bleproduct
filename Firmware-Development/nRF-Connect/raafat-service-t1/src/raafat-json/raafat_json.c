@@ -13,6 +13,7 @@ int raafat_json_stringify_data(raafat_data_t* new_raafat_data)
     // Create adc object
     cJSON *adc = cJSON_CreateObject();
     cJSON_AddItemToObject(root, "adc", adc);
+    cJSON_AddStringToObject(adc, "Scale", "mV");
 
     // Add adc values
     cJSON *adc_values = cJSON_CreateObject();
@@ -22,6 +23,8 @@ int raafat_json_stringify_data(raafat_data_t* new_raafat_data)
     cJSON_AddNumberToObject(adc_values, "AN4", new_raafat_data->an3);
     cJSON_AddNumberToObject(adc_values, "AN5", new_raafat_data->an4);
     cJSON_AddItemToObject(adc, "values", adc_values);
+
+
 
     #ifdef CONFIG_BT_RAAFAT_ENABLE_GYRO_PACKET
     // Create gyro object
@@ -49,16 +52,30 @@ int raafat_json_stringify_data(raafat_data_t* new_raafat_data)
     // Create magnetometer object
     cJSON *magnetometer = cJSON_CreateObject();
     cJSON_AddItemToObject(root, "magnetometer", magnetometer);
+    cJSON_AddStringToObject(magnetometer, "Scale", "raw");
 
     // Add magnetometer values
-    cJSON_AddNumberToObject(magnetometer, "mag_x", -123);
-    cJSON_AddNumberToObject(magnetometer, "mag_y", 456);
-    cJSON_AddNumberToObject(magnetometer, "mag_z", -789);
+    // cJSON_AddNumberToObject(magnetometer, "mag_x_val1", new_raafat_data->magX_val1);
+    // cJSON_AddNumberToObject(magnetometer, "mag_y_val1", new_raafat_data->magY_val1);
+    // cJSON_AddNumberToObject(magnetometer, "mag_z_val1", new_raafat_data->magZ_val1);
+
+    // cJSON_AddNumberToObject(magnetometer, "mag_x_val2", new_raafat_data->magX_val2);
+    // cJSON_AddNumberToObject(magnetometer, "mag_y_val2", new_raafat_data->magY_val2);
+    // cJSON_AddNumberToObject(magnetometer, "mag_z_val2", new_raafat_data->magZ_val2);
+
+    // cJSON_AddNumberToObject(magnetometer, "mag_x", ((int64_t)new_raafat_data->magX_val1 << 32) | new_raafat_data->magX_val2);
+    // cJSON_AddNumberToObject(magnetometer, "mag_y", ((int64_t)new_raafat_data->magY_val1 << 32) | new_raafat_data->magY_val2);
+    // cJSON_AddNumberToObject(magnetometer, "mag_z", ((int64_t)new_raafat_data->magZ_val1 << 32) | new_raafat_data->magZ_val2);
+
+    cJSON *magnetometer_values = cJSON_CreateObject();
+    cJSON_AddNumberToObject(magnetometer_values, "mag_x", new_raafat_data->magX_val1 );
+    cJSON_AddNumberToObject(magnetometer_values, "mag_y", new_raafat_data->magY_val1 );
+    cJSON_AddNumberToObject(magnetometer_values, "mag_z", new_raafat_data->magZ_val1 );
+    cJSON_AddItemToObject(magnetometer, "values", magnetometer_values);
     #endif
 
     // Print the JSON packet
     char *json_packet = cJSON_PrintUnformatted(root);
-
     // Free memory
     cJSON_Delete(root);
 	snprintf(new_raafat_data->raafat_json_packet, 300, "%s", json_packet);

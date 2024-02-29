@@ -16,6 +16,15 @@ typedef struct raafat_data_s{
 	int32_t an4; //0.28
 
 	char* raafat_json_packet;
+
+	/* Magnetometer data */
+	int32_t magX_val1;
+	int32_t magX_val2;
+	int32_t magY_val1;
+	int32_t magY_val2;
+	int32_t magZ_val1;
+	int32_t magZ_val2;
+
 }raafat_data_t;
 
 #ifdef __cplusplus

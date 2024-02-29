@@ -13,6 +13,7 @@ add_subdirectory(src/raafat-service)
 add_subdirectory(src/raafat-json)
 add_subdirectory(src/raafat-data)
 add_subdirectory(src/raafat-adc)
+add_subdirectory(src/raafat-bmm150)
 add_subdirectory(src/cJSON)
 
 
