@@ -32,6 +32,8 @@ extern "C" {
 // #define BT_UUID_RAAFAT_AN4_VAL \
 // 	BT_UUID_128_ENCODE(0x00001527, 	0x1212, 0xefde, 0x1523, 0x785feabcd123)
 
+/** @brief LED Characteristic UUID. */
+#define BT_UUID_RAAFAT_LED_VAL BT_UUID_128_ENCODE(0x00003, 0x1212, 0xefde, 0x1523, 0x785feabcd123)
 
 // #define BT_UUID_RAAFAT        BT_UUID_DECLARE_128(BT_UUID_RAAFAT_VAL)
 #define BT_UUID_RAAFAT_AN1    BT_UUID_DECLARE_128(BT_UUID_RAAFAT_AN1_VAL)
@@ -44,6 +46,8 @@ extern "C" {
 // #define BT_UUID_RAAFAT_AN2    BT_UUID_GATT_AO
 // #define BT_UUID_RAAFAT_AN3    BT_UUID_GATT_AO
 // #define BT_UUID_RAAFAT_AN4    BT_UUID_GATT_AO
+
+#define BT_UUID_RAAFAT_LED BT_UUID_DECLARE_128(BT_UUID_RAAFAT_LED_VAL)
 
 
 /** @brief Send the Current state.

@@ -61,11 +61,14 @@ void raafat_rgb_init(raafat_data_t* new_raafat_data)
 	if (device_is_ready(strip)) {
 		printk("Found LED strip device %s", strip->name);
 	} else {
+	
 		printk("LED strip device %s is not ready", strip->name);
 	}
-
 	s_new_raafat_data = new_raafat_data;
+	raafat_rgb_change(WHITE, 0);
 
+
+	#if 0
     /* LED Thread intialize */
     // Initialize the thread
     k_thread_create(&raafat_rgb_thread_data, my_stack, STACK_SIZE,
@@ -74,6 +77,7 @@ void raafat_rgb_init(raafat_data_t* new_raafat_data)
 
     // Start the thread
     k_thread_start(&raafat_rgb_thread_data);
+	#endif
 
 }
 

@@ -18,7 +18,8 @@
 #include <zephyr/bluetooth/uuid.h>
 #include <zephyr/bluetooth/gatt.h>
 #include <zephyr/settings/settings.h>
-#include "./raafat_service.h"
+#include "raafat_service.h"
+#include "raafat_rgb.h"
 #include <zephyr/logging/log.h>
 
 LOG_MODULE_REGISTER(bt_raafat, CONFIG_BT_RAAFAT_LOG_LEVEL);
@@ -51,13 +52,13 @@ static void connected(struct bt_conn *conn, uint8_t err)
 	}
 
 	printk("Connected\n");
-
+	raafat_rgb_change(BLUE, 0);
 }
 
 static void disconnected(struct bt_conn *conn, uint8_t reason)
 {
 	printk("Disconnected (reason %u)\n", reason);
-
+	raafat_rgb_change(RED, 0);
 }
 
 #ifdef CONFIG_BT_RAAFAT_SECURITY_ENABLED
@@ -142,6 +143,59 @@ static void raafatlc_ccc_cfg_changed(const struct bt_gatt_attr *attr,
 	notify_enabled = (value == BT_GATT_CCC_NOTIFY);
 }
 
+static ssize_t write_raafat_json_led(struct bt_conn *conn, const struct bt_gatt_attr *attr, const void *buf,
+			 uint16_t len, uint16_t offset, uint8_t flags)
+{
+	printk("Attribute write, handle: %u, conn: %p\n", attr->handle, (void *)conn);
+
+	// if (len != 1U) {
+	// 	LOG_DBG("Write led: Incorrect data length");
+	// 	return BT_GATT_ERR(BT_ATT_ERR_INVALID_ATTRIBUTE_LEN);
+	// }
+
+	// if (offset != 0) {
+	// 	LOG_DBG("Write led: Incorrect data offset");
+	// 	return BT_GATT_ERR(BT_ATT_ERR_INVALID_OFFSET);
+	// }
+
+	// if (lbs_cb.led_cb) {
+		// Read the received value
+		// uint8_t val = *((uint8_t *)buf);
+       char* val = (char *)buf;
+	   for (size_t i = 0; i < len; i++)
+	   {
+			/* code */
+			if(val[i] == 1)
+			{
+				raafat_rgb_change(WHITE, 0);
+			}
+			if(val[i] == 0)
+			{
+				raafat_rgb_change(BLACK, 0);
+			}
+			if(val[i] == 2)
+			{
+				raafat_rgb_change(GREEN, 0);
+			}
+			printk("%c\n",val[i]);
+	   }
+
+    	
+
+	// 	if (val == 0x00 || val == 0x01) {
+	// 		// Call the application callback function to update the LED state
+	// 		lbs_cb.led_cb(val ? true : false);
+	// 	} else {
+	// 		LOG_DBG("Write led: Incorrect value");
+	// 		return BT_GATT_ERR(BT_ATT_ERR_VALUE_NOT_ALLOWED);
+	// 	}
+	// }
+
+	return len;
+}
+
+
+
 #ifdef CONFIG_BT_RAAFAT_POLL_ANALOG
 static ssize_t read_raafat_json_packet(struct bt_conn *conn,
 			  const struct bt_gatt_attr *attr,
@@ -175,6 +229,11 @@ BT_GATT_PRIMARY_SERVICE(BT_UUID_RAAFAT),
 	BT_GATT_CCC(raafatlc_ccc_cfg_changed,
 		    BT_GATT_PERM_READ | BT_GATT_PERM_WRITE),
 #endif			
+
+BT_GATT_CHARACTERISTIC(BT_UUID_RAAFAT_LED,
+				BT_GATT_CHRC_WRITE, BT_GATT_PERM_WRITE,
+				NULL, write_raafat_json_led,
+				NULL)
 );
 
 int raafat_service_send_json_packet()
