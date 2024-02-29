@@ -22,21 +22,8 @@ void main(void)
 
 	LOG_INF("Displaying pattern on strip");
 	while (1) {
-		
-		raafat_rgb_change(RED, 0);
-		k_sleep(K_SECONDS(1));
-
-		raafat_rgb_change(GREEN, 0);
-		k_sleep(K_SECONDS(1));
-
-		raafat_rgb_change(BLUE, 0);
-		k_sleep(K_SECONDS(1));
-
-		raafat_rgb_change(WHITE, 0);
-		k_sleep(K_SECONDS(1));
-
-		raafat_rgb_change(BLACK, 0);
-		k_sleep(RAAFAT_RGB_DELAY_TIME);
+		LOG_INF("Main Thread Running!\n");
+		k_sleep(K_SECONDS(10));
 	}
 }
 

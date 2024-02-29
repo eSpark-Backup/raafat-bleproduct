@@ -1,4 +1,5 @@
 #include <zephyr/zephyr.h>
+#include <zephyr/kernel.h>
 #include <zephyr/drivers/led_strip.h>
 #include <zephyr/device.h>
 #include <zephyr/drivers/spi.h>
@@ -25,6 +26,34 @@ struct led_rgb pixels[STRIP_NUM_PIXELS];
 
 static const struct device *strip = DEVICE_DT_GET(STRIP_NODE);
 
+#define STACK_SIZE 1024
+#define PRIORITY 5
+
+// Define stack and control structure for your thread
+K_THREAD_STACK_DEFINE(my_stack, STACK_SIZE);
+struct k_thread raafat_rgb_thread_data;
+
+// Define your thread function
+void raafat_rgb_thread(void *arg) {
+	printk("RGB Thread Started!\n");
+    while (1) {
+    	printk("RGB Thread Running!\n");
+		raafat_rgb_change(RED, 0);
+		k_sleep(RAAFAT_RGB_DELAY_TIME);
+
+		raafat_rgb_change(GREEN, 0);
+		k_sleep(RAAFAT_RGB_DELAY_TIME);
+
+		raafat_rgb_change(BLUE, 0);
+		k_sleep(RAAFAT_RGB_DELAY_TIME);
+
+		raafat_rgb_change(WHITE, 0);
+		k_sleep(RAAFAT_RGB_DELAY_TIME);
+
+		raafat_rgb_change(BLACK, 0);
+		k_sleep(RAAFAT_RGB_DELAY_TIME);
+    }
+}
 
 void raafat_rgb_init()
 {
@@ -34,6 +63,16 @@ void raafat_rgb_init()
 	} else {
 		printk("LED strip device %s is not ready", strip->name);
 	}
+
+    /* LED Thread intialize */
+    // Initialize the thread
+    k_thread_create(&raafat_rgb_thread_data, my_stack, STACK_SIZE,
+                    raafat_rgb_thread, NULL, NULL, NULL,
+                    PRIORITY, 0, K_NO_WAIT);
+
+    // Start the thread
+    k_thread_start(&raafat_rgb_thread_data);
+
 }
 
 void raafat_rgb_change(int color, int pixel_index)
