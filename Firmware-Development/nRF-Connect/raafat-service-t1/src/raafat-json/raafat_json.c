@@ -74,6 +74,11 @@ int raafat_json_stringify_data(raafat_data_t* new_raafat_data)
     cJSON_AddItemToObject(magnetometer, "values", magnetometer_values);
     #endif
 
+    /* RGB data */
+    cJSON *rgb_led = cJSON_CreateObject();
+    cJSON_AddItemToObject(root, "rgb_led", rgb_led);
+    cJSON_AddBoolToObject(rgb_led, "status", new_raafat_data->rgb_status);
+
     // Print the JSON packet
     char *json_packet = cJSON_PrintUnformatted(root);
     // Free memory

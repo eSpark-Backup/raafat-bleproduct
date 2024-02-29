@@ -15,6 +15,7 @@ LOG_MODULE_REGISTER(main);
 #include "raafat_data.h"
 #include "raafat_adc.h"
 #include "raafat_bmm150.h"
+#include "raafat_rgb.h"
 
 /*Defines*/
 #define RAAFAT_GPIO_CLR_PWR NRF_GPIO_PIN_MAP(0,20)  //CLR POWER
@@ -37,6 +38,8 @@ int main(void)
 	raafat_service_init();
     raafat_adc_init();
     raafat_bmm150_init();
+	raafat_rgb_init(raafat_data);
+
     raafat_data->raafat_json_packet = raafat_service_get_json_packet_ptr();
 
     /* read adc, bmm150, bmi323 and store in raafat data before stringify*/

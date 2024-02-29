@@ -6,7 +6,7 @@ extern "C" {
 #endif
 
 #include <inttypes.h>
-
+#include <stdbool.h>
 /* raafat data structure */
 typedef struct raafat_data_s{
 	int32_t an0; //0.2
@@ -24,6 +24,9 @@ typedef struct raafat_data_s{
 	int32_t magY_val2;
 	int32_t magZ_val1;
 	int32_t magZ_val2;
+
+	/* RGB Status */
+	bool rgb_status;
 
 }raafat_data_t;
 

@@ -15,7 +15,105 @@
  *
  * Copyright (c) 2022 Nordic Semiconductor ASA
  */
+/*
+ * Copyright (c) 2019, Nordic Semiconductor ASA
+ *
+ * SPDX-License-Identifier: Apache-2.0
+ */
 
+ #include <zephyr/dt-bindings/led/led.h>
+
+ #include "nrf52-bindings.h"
+ 
+ &arduino_spi { /* MOSI on D11 / P0.23 */
+     compatible = "nordic,nrf-spim";
+     status = "okay";
+    cs-gpios = <&arduino_header 16 GPIO_ACTIVE_LOW>; /* D10 */
+    pinctrl-0 = <&spi2_wsled>;
+    pinctrl-names = "default", "sleep";
+
+     led_strip: ws2812@0 {
+         compatible = "worldsemi,ws2812-spi";
+ 
+         /* SPI */
+         reg = <0>; /* ignored, but necessary for SPI bindings */
+         spi-max-frequency = <SPI_FREQ>;
+ 
+         /* WS2812 */
+         chain-length = <WS2812_LENGTH>; /* arbitrary; change at will */
+         color-mapping = <LED_COLOR_ID_GREEN
+                  LED_COLOR_ID_RED
+                  LED_COLOR_ID_BLUE>;
+         spi-one-frame = <ONE_FRAME>;
+         spi-zero-frame = <ZERO_FRAME>;
+     };
+ };
+ 
+ / {
+     aliases {
+         led-strip = &led_strip;
+     };
+ };
+ 
+&arduino_header {
+    gpio-map = <0 0 &gpio0 3 0>,
+               <1 0 &gpio0 4 0>,
+               <2 0 &gpio0 28 0>,
+               <3 0 &gpio0 29 0>,
+               <4 0 &gpio0 30 0>,
+               <5 0 &gpio0 31 0>,
+               <6 0 &gpio0 11 0>,
+               <7 0 &gpio0 12 0>,
+               <8 0 &gpio0 13 0>,
+               <9 0 &gpio0 14 0>,
+               <10 0 &gpio0 15 0>,
+               <11 0 &gpio0 16 0>,
+               <12 0 &gpio0 17 0>,
+               <13 0 &gpio0 18 0>,
+               <14 0 &gpio0 19 0>,
+               <15 0 &gpio0 20 0>,
+               <16 0 &gpio0 22 0>,
+               <17 0 &gpio0 23 0>,
+               <18 0 &gpio0 24 0>,
+               <19 0 &gpio0 25 0>,
+               <20 0 &gpio0 26 0>,
+               <21 0 &gpio0 27 0>;
+};
+
+&arduino_header {
+    gpio-map = <0 0 &gpio0 3 0>,
+               <1 0 &gpio0 4 0>,
+               <2 0 &gpio0 28 0>,
+               <3 0 &gpio0 29 0>,
+               <4 0 &gpio0 30 0>,
+               <5 0 &gpio0 31 0>,
+               <6 0 &gpio0 11 0>,
+               <7 0 &gpio0 12 0>,
+               <8 0 &gpio0 13 0>,
+               <9 0 &gpio0 14 0>,
+               <10 0 &gpio0 15 0>,
+               <11 0 &gpio0 16 0>,
+               <12 0 &gpio0 17 0>,
+               <13 0 &gpio0 18 0>,
+               <14 0 &gpio0 19 0>,
+               <15 0 &gpio0 20 0>,
+               <16 0 &gpio0 22 0>,
+               <17 0 &gpio0 23 0>,
+               <18 0 &gpio0 24 0>,
+               <19 0 &gpio0 25 0>,
+               <20 0 &gpio0 26 0>,
+               <21 0 &gpio0 27 0>;
+};
+
+&pinctrl {
+    spi2_wsled: spi2_wsled {
+        group1 {
+            psels = <NRF_PSEL(SPIM_SCK, 0, 25)>,
+                <NRF_PSEL(SPIM_MOSI, 0, 18)>,
+                <NRF_PSEL(SPIM_MISO, 0, 24)>;
+        };
+    };
+};
 
  / {
 	zephyr,user {
