@@ -45,8 +45,8 @@ typedef struct raafat_data_s{
 	int32_t gyroZ_val2;
 
 	/* Temperature data */
-	int8_t temp_h;
-	int8_t temp_l;
+	uint8_t temp_h;
+	uint8_t temp_l;
 
 }raafat_data_t;
 

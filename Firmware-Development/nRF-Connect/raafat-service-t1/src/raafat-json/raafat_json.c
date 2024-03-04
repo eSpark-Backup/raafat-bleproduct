@@ -13,7 +13,7 @@ int raafat_json_stringify_data(raafat_data_t* new_raafat_data)
     // Create adc object
     cJSON *adc = cJSON_CreateObject();
     cJSON_AddItemToObject(root, "adc", adc);
-    cJSON_AddStringToObject(adc, "Scale", "mV");
+    cJSON_AddStringToObject(adc, "scale", "mV");
 
     // Add adc values
     cJSON *adc_values = cJSON_CreateObject();
@@ -30,7 +30,7 @@ int raafat_json_stringify_data(raafat_data_t* new_raafat_data)
     // Create gyro object
     cJSON *gyro = cJSON_CreateObject();
     cJSON_AddItemToObject(root, "gyroscope", gyro);
-    cJSON_AddStringToObject(gyro, "Scale", "raw");
+    cJSON_AddStringToObject(gyro, "scale", "raw");
 
     // Add gyro values
     cJSON *gyroscope_values = cJSON_CreateObject();
@@ -44,7 +44,7 @@ int raafat_json_stringify_data(raafat_data_t* new_raafat_data)
     // Create accelerometer object
     cJSON *accelerometer = cJSON_CreateObject();
     cJSON_AddItemToObject(root, "accelerometer", accelerometer);
-    cJSON_AddStringToObject(accelerometer, "Scale", "raw");
+    cJSON_AddStringToObject(accelerometer, "scale", "raw");
 
     // Add accelerometer values
     cJSON *accelerometer_values = cJSON_CreateObject();
@@ -68,7 +68,7 @@ int raafat_json_stringify_data(raafat_data_t* new_raafat_data)
     // Create magnetometer object
     cJSON *magnetometer = cJSON_CreateObject();
     cJSON_AddItemToObject(root, "magnetometer", magnetometer);
-    cJSON_AddStringToObject(magnetometer, "Scale", "raw");
+    cJSON_AddStringToObject(magnetometer, "scale", "raw");
 
     // Add magnetometer values
     cJSON *magnetometer_values = cJSON_CreateObject();
@@ -96,6 +96,16 @@ int raafat_json_stringify_data(raafat_data_t* new_raafat_data)
     cJSON *rgb_led = cJSON_CreateObject();
     cJSON_AddItemToObject(root, "rgb_led", rgb_led);
     cJSON_AddBoolToObject(rgb_led, "status", new_raafat_data->rgb_status);
+
+    /* Temperature Data */
+    cJSON *temp = cJSON_CreateObject();
+    cJSON_AddItemToObject(root,"temperature", temp);
+    // cJSON_AddNumberToObject(temp, "value", (uint16_t)(((uint16_t)new_raafat_data->temp_h << 8) | ((uint16_t)new_raafat_data->temp_l)));
+    cJSON_AddStringToObject(temp,"scale","raw");
+    cJSON *temp_values = cJSON_CreateObject();
+    cJSON_AddItemToObject(temp,"values", temp_values);
+    cJSON_AddNumberToObject(temp_values, "temp_h", new_raafat_data->temp_h);
+    cJSON_AddNumberToObject(temp_values, "temp_l", new_raafat_data->temp_l);
 
     // Print the JSON packet
     char *json_packet = cJSON_PrintUnformatted(root);

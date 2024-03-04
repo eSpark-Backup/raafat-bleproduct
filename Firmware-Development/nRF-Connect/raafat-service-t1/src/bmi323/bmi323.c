@@ -211,11 +211,18 @@ void bmi323_read_temp()
     bmi323_read_data(&data, &sensor_regs, 2);
     printk("TEMP DATA = %d, %d, %d, %d\n", data[0], data[1], data[2], data[3]);   
     
-    s_new_raafat_data->temp_h = data[3];
-    s_new_raafat_data->temp_l = data[2];
+    s_new_raafat_data->temp_h = data[3]; //7 MSB 0-128 = -41-87 also 23 celc = 0x0000
+    s_new_raafat_data->temp_l = data[2]; //9 LSB 512 LSB/kelvin 2^9 = 512
 
-    // float temp = ((((int)data[3]) << 8) | ((int)data[2])) / 512.0F + 23.0F;
+    /* Temp calculations */
+    float temp = (((((int16_t)data[3]) << 8) | (data[2])) / 512.0F) + 23.0F;
+    int16_t temp_raw = (((uint16_t)data[3]) << 8) | (uint16_t)(data[2]);
+    // printk("TEMP H %x\n", data[3]);
+    // printk("TEMP L %x\n", data[2]);
     // printk("TEMP = %d.%03u\n", (int)data[3], (unsigned int)(data[2])/255.0F*100.0F);
+    float mTemp = temp_raw/512.0F;
+    printf("TEMP FLOAT %f\n", mTemp+23.0F);
+
 }
 
 
