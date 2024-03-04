@@ -197,3 +197,11 @@
 		reg = <0x10>;
 	};
 };
+
+&i2c0 {
+    mysensor: mysensor@68{
+        compatible = "i2c-device";
+        reg = < 0x68 >;
+        label = "MYSENSOR";
+    };
+};

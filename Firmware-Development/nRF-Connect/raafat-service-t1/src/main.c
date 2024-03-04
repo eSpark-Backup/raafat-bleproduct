@@ -16,6 +16,7 @@ LOG_MODULE_REGISTER(main);
 #include "raafat_adc.h"
 #include "raafat_bmm150.h"
 #include "raafat_rgb.h"
+#include "bmi323.h"
 
 /*Defines*/
 #define RAAFAT_GPIO_CLR_PWR NRF_GPIO_PIN_MAP(0,20)  //CLR POWER
@@ -39,6 +40,7 @@ int main(void)
     raafat_adc_init();
     raafat_bmm150_init();
 	raafat_rgb_init(raafat_data);
+    bmi323_init(raafat_data);
 
     raafat_data->raafat_json_packet = raafat_service_get_json_packet_ptr();
 
@@ -50,11 +52,14 @@ int main(void)
     raafat_json_stringify_data(raafat_data);
 
 	for (;;) {
-        /* update json packet every interval */
+        /* read and update json packet every interval */
         raafat_adc_read(raafat_data);
         raafat_bmm150_read(raafat_data);
+        bmi323_read_acc();
+        bmi323_read_gyro();
+        bmi323_read_temp();
 
-        /* Stringify latest data */
+        /* Stringify latest data to json string */
         raafat_json_stringify_data(raafat_data);
 
 		/* send json packet every second after getting new sensor values*/

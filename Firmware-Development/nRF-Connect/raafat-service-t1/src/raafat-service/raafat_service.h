@@ -14,7 +14,7 @@ extern "C" {
 
 #include <zephyr/types.h>
 
-#define RAAFAT_SERVICE_JSON_PACKET_SIZE		300
+#define RAAFAT_SERVICE_JSON_PACKET_SIZE		500
 
 /** @brief Raafat Service UUID. */
 #define BT_UUID_RAAFAT_VAL \

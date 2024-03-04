@@ -28,6 +28,26 @@ typedef struct raafat_data_s{
 	/* RGB Status */
 	bool rgb_status;
 
+	/* Accelerometer data */
+	int32_t accX_val1;
+	int32_t accX_val2;
+	int32_t accY_val1;
+	int32_t accY_val2;
+	int32_t accZ_val1;
+	int32_t accZ_val2;
+
+	/* Gyroscope data */
+	int32_t gyroX_val1;
+	int32_t gyroX_val2;
+	int32_t gyroY_val1;
+	int32_t gyroY_val2;
+	int32_t gyroZ_val1;
+	int32_t gyroZ_val2;
+
+	/* Temperature data */
+	int8_t temp_h;
+	int8_t temp_l;
+
 }raafat_data_t;
 
 #ifdef __cplusplus
