@@ -210,7 +210,7 @@ void bmi323_read_gyro()
     //         data[7],                    
     //         data[6]
     //         );
-    printf("GYRO DATA 2 = %f, %f, %f\n", 
+    printf("GYRO DATA = %f, %f, %f\n", 
         (float)((int16_t)data[3] << 8 | data[2]) / 256.0F, 
         (float)((int16_t)data[5] << 8 | data[4]) / 256.0F,
         (float)((int16_t)data[7] << 8 | data[6]) / 256.0F
@@ -235,7 +235,7 @@ void bmi323_read_temp()
 {
     sensor_regs = BMI323_TEMP_REG;
     bmi323_read_data(&data, &sensor_regs, 2);
-    printk("TEMP DATA = %d, %d, %d, %d\n", data[0], data[1], data[2], data[3]);   
+    // printk("TEMP DATA = %d, %d, %d, %d\n", data[0], data[1], data[2], data[3]);   
     
     s_new_raafat_data->temp_h = data[3]; //7 MSB 0-128 = -41-87 also 23 celc = 0x0000
     s_new_raafat_data->temp_l = data[2]; //9 LSB 512 LSB/kelvin 2^9 = 512
@@ -247,7 +247,7 @@ void bmi323_read_temp()
     // printk("TEMP L %x\n", data[2]);
     // printk("TEMP = %d.%03u\n", (int)data[3], (unsigned int)(data[2])/255.0F*100.0F);
     float mTemp = temp_raw/512.0F;
-    printf("TEMP FLOAT %f\n", mTemp+23.0F);
+    printf("BMI TEMPERATURE %f\xB0""C\n", mTemp+23.0F);
 
 }
 

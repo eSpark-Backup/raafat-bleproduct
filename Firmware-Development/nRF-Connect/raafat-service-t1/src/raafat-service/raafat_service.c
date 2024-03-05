@@ -165,19 +165,23 @@ static ssize_t write_raafat_json_led(struct bt_conn *conn, const struct bt_gatt_
 	   for (size_t i = 0; i < len; i++)
 	   {
 			/* code */
-			if(val[i] == 1)
-			{
-				raafat_rgb_change(WHITE, 0);
-			}
 			if(val[i] == 0)
 			{
 				raafat_rgb_change(BLACK, 0);
+			}
+			if(val[i] == 1)
+			{
+				raafat_rgb_change(WHITE, 0);
 			}
 			if(val[i] == 2)
 			{
 				raafat_rgb_change(GREEN, 0);
 			}
-			printk("%c\n",val[i]);
+			if(val[i] == 3)
+			{
+				raafat_rgb_change(BLUE, 0);
+			}
+			// printk("%c\n",val[i]);
 	   }
 
     	
@@ -238,7 +242,7 @@ BT_GATT_CHARACTERISTIC(BT_UUID_RAAFAT_LED,
 
 int raafat_service_send_json_packet()
 {
-	printk("sending json packet!\n");
+	// printk("sending json packet!\n");
 	int err = 0;
 	if (!notify_enabled) {
 		return -EACCES;

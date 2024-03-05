@@ -47,12 +47,16 @@ int main(void)
     /* read adc, bmm150, bmi323 and store in raafat data before stringify*/
     raafat_adc_read(raafat_data);
     raafat_bmm150_read(raafat_data);
+    bmi323_read_acc();
+    bmi323_read_gyro();
+    bmi323_read_temp();
 
     /* stringify inital raafat data*/
     raafat_json_stringify_data(raafat_data);
 
 	for (;;) {
         /* read and update json packet every interval */
+        printk("====================================\n");
         raafat_adc_read(raafat_data);
         raafat_bmm150_read(raafat_data);
         bmi323_read_acc();
@@ -67,6 +71,5 @@ int main(void)
 
         /* Delay between each read */  
 		k_sleep(K_SECONDS(CONFIG_RAAFAT_SERVICE_UPDATE_INTERVAL_SEC));
-		// k_sleep(K_MSEC(50));
 	}
 }

@@ -112,6 +112,6 @@ int raafat_json_stringify_data(raafat_data_t* new_raafat_data)
     // Free memory
     cJSON_Delete(root);
 	snprintf(new_raafat_data->raafat_json_packet, 500, "%s", json_packet);
-	printk("json packet : \n %s", new_raafat_data->raafat_json_packet);
+	printk("JSON PACKET = %s\n", new_raafat_data->raafat_json_packet);
     cJSON_free(json_packet);
 }
