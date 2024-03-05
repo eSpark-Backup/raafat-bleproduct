@@ -67,5 +67,6 @@ int main(void)
 
         /* Delay between each read */  
 		k_sleep(K_SECONDS(CONFIG_RAAFAT_SERVICE_UPDATE_INTERVAL_SEC));
+		// k_sleep(K_MSEC(50));
 	}
 }

@@ -26,19 +26,35 @@
 #define BMI323_GYRO_CONF_REG 0x21
 
 /*Bit mask and shifts*/
-// Bit masks and shifts, based on the configuration provided
+// Bit masks and shifts, based on the configuration provided for ACCEL
 #define OUTPUT_DATA_RATE_MASK 0x000F
 #define ACCELEROMETER_RANGE_MASK 0x0070
 #define BAND_WIDTH_MASK 0x0080
 #define SAMPLE_AVERAGE_NUM_MASK 0x0700
 #define ACCELEROMETER_MODE_MASK 0x7000
 
+/* onfiguration provided for GYRO */
+#define GYROSCOPE_OUTPUT_DATA_RATE 0x8
+#define GYROSCOPE_RANGE 0x0
+#define GYROSCOPE_BAND_WIDTH 0x0
+#define GYROSCOPE_SAMPLE_AVERAGE_NUM 0x3
+#define GYROSCOPE_MODE 0x4
+
+/* Accelerometer config bit shifts */
 #define OUTPUT_DATA_RATE_SHIFT 0
 #define ACCELEROMETER_RANGE_SHIFT 4
 #define BAND_WIDTH_SHIFT 7
 
 #define SAMPLE_AVERAGE_NUM_SHIFT 0
 #define ACCELEROMETER_MODE_SHIFT 4
+
+/* Gyroscope config bit shifts */
+#define GYROSCOPE_OUTPUT_DATA_RATE_SHIFT 0
+#define GYROSCOPE_RANGE_SHIFT 4
+#define GYROSCOPE_BAND_WIDTH_SHIFT 7
+
+#define GYROSCOPE_SAMPLE_AVERAGE_NUM_SHIFT 0
+#define GYROSCOPE_MODE_SHIFT 4
 
 
 // Example configuration values - replace these with your actual desired settings
@@ -54,7 +70,7 @@ uint16_t accelerometerModeValue = 0x7; // Example for accelerometer mode
 static const struct i2c_dt_spec dev_i2c = I2C_DT_SPEC_GET(I2C0_NODE);
 
 static uint8_t acc_config[3] = {BMI323_ACC_CONF_REG, 0, 0};
-static uint8_t gyro_config[3] = {BMI323_GYRO_CONF_REG, 0b0100111, 0b01110110};
+static uint8_t gyro_config[3] = {BMI323_GYRO_CONF_REG, 0, 0};
 static uint8_t sensor_regs = 0x00;
 static uint8_t data[25] = {0};
 static float x = 0, y = 0, z = 0;
@@ -65,7 +81,7 @@ static raafat_data_t* s_new_raafat_data;
 
 int bmi323_init(raafat_data_t* new_raafat_data)
 {
-int ret = 0;
+    int ret = 0;
     if (!device_is_ready(dev_i2c.bus)) {
             printk("I2C bus %s is not ready!\n\r",dev_i2c.bus->name);
             return 1;
@@ -116,6 +132,11 @@ int ret = 0;
     k_sleep(K_SECONDS(1));
     acc_config[1] = (outputDataRateValue << OUTPUT_DATA_RATE_SHIFT) | (accelerometerRangeValue << ACCELEROMETER_RANGE_SHIFT) | (bandWidthValue << BAND_WIDTH_SHIFT);
     acc_config[2] = (sampleAverageNumValue << SAMPLE_AVERAGE_NUM_SHIFT) | (accelerometerModeValue << ACCELEROMETER_MODE_SHIFT);
+    
+    gyro_config[0] = BMI323_GYRO_CONF_REG;
+    gyro_config[1] = (GYROSCOPE_OUTPUT_DATA_RATE << GYROSCOPE_OUTPUT_DATA_RATE_SHIFT) | (GYROSCOPE_RANGE << GYROSCOPE_RANGE_SHIFT) | (GYROSCOPE_BAND_WIDTH << GYROSCOPE_BAND_WIDTH_SHIFT);
+    gyro_config[2] = (GYROSCOPE_SAMPLE_AVERAGE_NUM << GYROSCOPE_SAMPLE_AVERAGE_NUM_SHIFT) | (GYROSCOPE_MODE << GYROSCOPE_MODE_SHIFT);
+    
     i2c_write_dt(&dev_i2c, &acc_config, sizeof(acc_config));
     i2c_write_dt(&dev_i2c, &gyro_config, sizeof(gyro_config));
 }
@@ -145,14 +166,14 @@ void bmi323_read_acc()
                 y = lsb_to_mps2((int16_t)(((uint16_t)data[5] << 8)|((uint16_t)data[4] << 0)), 2, 16);
                 z = lsb_to_mps2((int16_t)(((uint16_t)data[7] << 8)|((uint16_t)data[6] << 0)), 2, 16);
 
-                printk("ACC DATA = %d.%03d, %d.%03d, %d.%03d\n", 
-                            data[3], 
-                            data[2], 
-                            data[5], 
-                            data[4],
-                            data[7], 
-                            data[6]
-                        );
+                // printk("ACC DATA = %d.%03d, %d.%03d, %d.%03d\n", 
+                //             data[3], 
+                //             data[2], 
+                //             data[5], 
+                //             data[4],
+                //             data[7], 
+                //             data[6]
+                //         );
 
                 s_new_raafat_data->accX_val1 = data[3];
                 s_new_raafat_data->accX_val2 = data[2];
@@ -161,11 +182,11 @@ void bmi323_read_acc()
                 s_new_raafat_data->accZ_val1 = data[7];
                 s_new_raafat_data->accZ_val2 = data[6];
 
-                // printk("ACC DATA = %d, %d, %d\n", 
-                //         (uint16_t)data[3] << 8 | data[2], 
-                //         (uint16_t)data[5] << 8 | data[4],
-                //         (uint16_t)data[7] << 8 | data[6]
-                //         );
+                printf("ACC DATA = %f, %f, %f\n", 
+                        (float)((int16_t)data[3] << 8 | data[2]) / 256.0F, 
+                        (float)((int16_t)data[5] << 8 | data[4]) / 256.0F,
+                        (float)((int16_t)data[7] << 8 | data[6]) / 256.0F
+                        );
 
                 // printk("Config : %x, %x", acc_config[1], acc_config[2]);
 
@@ -181,14 +202,19 @@ void bmi323_read_gyro()
     sensor_regs = BMI323_GYX_REG;
     bmi323_read_data(&data, &sensor_regs, 6);
 
-    printk("GYRO DATA = %d.%03d, %d.%03d, %d.%03d\n", 
-            data[3], 
-            data[2], 
-            data[5],
-            data[4],
-            data[7],                    
-            data[6]
-            );
+    // printk("GYRO DATA 1 = %d.%03d, %d.%03d, %d.%03d\n", 
+    //         data[3], 
+    //         data[2], 
+    //         data[5],
+    //         data[4],
+    //         data[7],                    
+    //         data[6]
+    //         );
+    printf("GYRO DATA 2 = %f, %f, %f\n", 
+        (float)((int16_t)data[3] << 8 | data[2]) / 256.0F, 
+        (float)((int16_t)data[5] << 8 | data[4]) / 256.0F,
+        (float)((int16_t)data[7] << 8 | data[6]) / 256.0F
+        );
 
     // printk("GYRO DATA = %d, %d, %d\n", 
     //         data[3], 

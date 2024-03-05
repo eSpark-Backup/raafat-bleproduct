@@ -42,13 +42,13 @@ void raafat_bmm150_read(raafat_data_t* new_raafat_data)
     // magn[1].val1 &= 0xFFFFE000;
     // magn[2].val1 &= 0xFFFFE000;
 
-    printk("MX: %d.%06d; MY: %d.%06d; MZ: %d.%06d; \n",
-            magn[0].val1,               magn[0].val2,
-            magn[1].val1,               magn[1].val2,
-            magn[2].val1,               magn[2].val2
-        );
+    // printk("MX: %d.%06d; MY: %d.%06d; MZ: %d.%06d; \n",
+    //         magn[0].val1,               magn[0].val2,
+    //         magn[1].val1,               magn[1].val2,
+    //         magn[2].val1,               magn[2].val2
+    //     );
 
-    // printk("( x y z ) = ( %f  %f  %f )\n",
+    // printf("( x y z ) = ( %f  %f  %f )\n",
     //     sensor_value_to_double(&magn[0]),
     //     sensor_value_to_double(&magn[1]),
     //     sensor_value_to_double(&magn[2]));
