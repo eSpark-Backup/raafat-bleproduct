@@ -1,6 +1,6 @@
 # NRF52832 Flashing and Testing Guide.
 
-## Table on Content
+## Table of Content
 * [Setup NRF connect SDK on VS Code](#1---setup-nrf-connect-sdk-on-vs-code)
     - [VS Code Installation](#a-vs-code-installation)
     - [Add NRF Connect SDK extension in VS Code](#b-add-nrf-connect-sdk-extension-in-vs-code)
