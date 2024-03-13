@@ -1,5 +1,21 @@
 # NRF52832 Flashing and Testing Guide.
 
+## Table on Content
+* [Setup NRF connect SDK on VS Code](#1---setup-nrf-connect-sdk-on-vs-code)
+    - [VS Code Installation](#a-vs-code-installation)
+    - [Add NRF Connect SDK extension in VS Code](#b-add-nrf-connect-sdk-extension-in-vs-code)
+        - [Install Toolchain](#i-install-toolchain)
+        - [Install SDK](#ii-install-sdk)
+* [Install J-Link tools](#2---install-j-link-tools)
+* [Setup power supply for the board](#3---setup-power-supply-for-the-board)
+    - [Option # 1:  Power from V_BAT](#option--1-power-from-v_bat)
+    - [Option # 2:  Power from 3v of debug connector/header](#option--2-power-from-3v-of-debug-connectorheader)
+* [Connecting the Segger J-Link](#4---connecting-the-segger-j-link)
+* [Starting the MCU](#5---starting-the-mcu)
+* [Flashing the MCU using NRF Connect SDK from VS Code](#6---flashing-the-mcu-using-nrf-connect-sdk-from-vs-code)
+* [Viewing the MCU Logs on RTT Viewer](#7---viewing-the-mcu-logs-on-rtt-viewer)
+
+
 ## 1 - Setup NRF connect SDK on VS Code
 ###  a) VS Code Installation
 
@@ -122,7 +138,7 @@ If MCU fails to start due to bad wiring or user forgot to press power button, fl
 
 If flashed successfully you can view the logs on the RTT Viewer which comes in the J-Link Tools.
 
-## 7 Viewing the MCU Logs on RTT Viewer
+## 7 - Viewing the MCU Logs on RTT Viewer
 
 Open RTT Viewer from the Windows Start Bar, if not available be default search "RTT" and select the application.
 
