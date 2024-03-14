@@ -23,7 +23,7 @@
 2. Once it is downloaded, run the installer (VSCodeUserSetup-{version}.exe). This will only take a minute.
 3. By default, VS Code is installed under `C:\Users\{Username}\AppData\Local\Programs\Microsoft VS Code`.
 
-Alternatively, you can also download a [Zip archive](/docs/?dv=winzip), extract it and run Code from there.
+Alternatively, you can also download a [Zip archive](https://code.visualstudio.com/docs/?dv=winzip), extract it and run Code from there.
 
 >**Tip:** Setup will add Visual Studio Code to your `%PATH%`, so from the console you can type 'code .' to open VS Code on that folder. You will need to restart your console after the installation for the change to the `%PATH%` environmental variable to take effect.
 
@@ -112,6 +112,15 @@ There are two ways that MCU starts depending upon the power configuration.
 
 ## 6 - Flashing the MCU using NRF Connect SDK from VS Code.
 
+> [!IMPORTANT]
+> Make sure to apply these configurations before flashing in the `prj.conf` file.
+>1) Set RC Oscillator as Clock Source  
+>`CONFIG_CLOCK_CONTROL_NRF_K32SRC_RC=y`
+>2) Disable on chip DCDC Converter  
+>`CONFIG_BOARD_ENABLE_DCDC=n`
+>2) Enables NFC pin to be used as GPIOs  
+>`CONFIG_NFCT_PINS_AS_GPIOS=y`    
+
 On the VS Code click on **Open an existing application** and open the application as shown.
 
 <img src="https://github.com/eSpark-Consultants/raafat-BLEproduct/assets/143803999/59a37219-e5f9-41ba-a804-b2389dbfe6f7)" width = "1000" height="300" />
@@ -137,6 +146,7 @@ If MCU fails to start due to bad wiring or user forgot to press power button, fl
 <img src="https://github.com/eSpark-Consultants/raafat-BLEproduct/assets/143803999/09fb82cf-11ee-449a-ba5e-e7205ee114c2)" width = "1000" height="300"/>
 
 If flashed successfully you can view the logs on the RTT Viewer which comes in the J-Link Tools.
+
 
 ## 7 - Viewing the MCU Logs on RTT Viewer
 
