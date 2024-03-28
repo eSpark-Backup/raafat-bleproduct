@@ -1,0 +1,8 @@
+DRC Rules Export File for PCB: D:\eSpark-Consultants\raafat-BLEproduct\Design Files\BLE_product-v1.2\BLE_product-v1.2.PcbDoc
+RuleKind=Clearance|RuleName=Clearance_LAYER3|Scope=Board|Minimum=4.92
+RuleKind=Clearance|RuleName=Clearance_LAYER2|Scope=Board|Minimum=4.92
+RuleKind=Clearance|RuleName=Clearance_BOTTOM|Scope=Board|Minimum=3.54
+RuleKind=SolderMaskExpansion|RuleName=SolderMaskExpansion|Scope=Board|Minimum=4.00
+RuleKind=Width|RuleName=Width|Scope=Board|Minimum=3.54
+RuleKind=Clearance|RuleName=Clearance_TOP|Scope=Board|Minimum=3.54
+RuleKind=ShortCircuit|RuleName=ShortCircuit|Scope=Board|Allowed=0

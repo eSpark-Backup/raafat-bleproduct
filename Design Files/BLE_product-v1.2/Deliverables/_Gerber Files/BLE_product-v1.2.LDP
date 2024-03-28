@@ -1,0 +1,6 @@
+Layer Pairs Export File for PCB: D:\eSpark-Consultants\raafat-BLEproduct\Design Files\BLE_product-v1.2\BLE_product-v1.2.PcbDoc
+LayersSetName=Top_Bot_Thru_Holes|DrillFile=ble_product-v1.2.txt|DrillLayers=gtl,g1,g2,gbl
+LayersSetName=Top_2_Blind_Vias|DrillFile=ble_product-v1.2.tx1|DrillLayers=gtl,g1
+LayersSetName=Top_3_Blind_Vias|DrillFile=ble_product-v1.2.tx2|DrillLayers=gtl,g1,g2
+LayersSetName=2_Bot_Blind_Vias|DrillFile=ble_product-v1.2.tx3|DrillLayers=g1,g2,gbl
+LayersSetName=3_Bot_Blind_Vias|DrillFile=ble_product-v1.2.tx4|DrillLayers=g2,gbl
