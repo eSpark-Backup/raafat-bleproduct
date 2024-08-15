@@ -1,5 +1,5 @@
 ----------------------------------------------------------------------------------------------------------------------------------
-NCDrill File Report For: BLE_product-v1.2.PcbDoc   28/03/2024  11:44:50 am
+NCDrill File Report For: BLE_product-v1.2.PcbDoc   15/08/2024  3:37:50 pm
 ----------------------------------------------------------------------------------------------------------------------------------
 
 Layer Pair : Top Layer to Bottom Layer
@@ -7,34 +7,36 @@ ASCII RoundHoles File : BLE_product-v1.2.TXT
 
 Tool       Hole Size               Hole Tolerance               Hole Type       Hole Count   Plated         Tool Travel
 ----------------------------------------------------------------------------------------------------------------------------------
-T1      6mil (0.15mm)                                             Round             12        PTH        0.94inch (23.78mm)
-T2      39mil (0.991mm)                                           Round             3         PTH        0.28inch (7.21mm)
+T1      6mil (0.15mm)                                             Round             12        PTH        1.01inch (25.78mm)
+T2      24mil (0.6mm)                                             Round             7         PTH        0.35inch (8.84mm)
 T3      8mil (0.2mm)                                              Round             8         NPTH       0.13inch (3.37mm)
 T4      32mil (0.82mm)                                            Round             2         NPTH       0.09inch (2.18mm)
+T5      39mil (0.991mm)                                           Round             3         NPTH       0.28inch (7.21mm)
+T6      94mil (2.375mm)                                           Round             4         NPTH       0.45inch (11.43mm)
 ----------------------------------------------------------------------------------------------------------------------------------
-Totals                                                                              25
+Totals                                                                              36
 Layer Pair : Top Layer to Layer 2
 ASCII RoundHoles File : BLE_product-v1.2.TX1
 
 Tool       Hole Size               Hole Tolerance               Hole Type       Hole Count   Plated         Tool Travel
 ----------------------------------------------------------------------------------------------------------------------------------
-T1      6mil (0.15mm)                                             Round             27        PTH        1.19inch (30.28mm)
+T1      6mil (0.15mm)                                             Round             25        PTH        1.23inch (31.30mm)
 ----------------------------------------------------------------------------------------------------------------------------------
-Totals                                                                              27
+Totals                                                                              25
 Layer Pair : Top Layer to Layer 3
 ASCII RoundHoles File : BLE_product-v1.2.TX2
 
 Tool       Hole Size               Hole Tolerance               Hole Type       Hole Count   Plated         Tool Travel
 ----------------------------------------------------------------------------------------------------------------------------------
-T1      6mil (0.15mm)                                             Round             20        PTH        1.05inch (26.79mm)
+T1      6mil (0.15mm)                                             Round             17        PTH        0.87inch (22.11mm)
 ----------------------------------------------------------------------------------------------------------------------------------
-Totals                                                                              20
+Totals                                                                              17
 Layer Pair : Layer 2 to Bottom Layer
 ASCII RoundHoles File : BLE_product-v1.2.TX3
 
 Tool       Hole Size               Hole Tolerance               Hole Type       Hole Count   Plated         Tool Travel
 ----------------------------------------------------------------------------------------------------------------------------------
-T1      6mil (0.15mm)                                             Round             13        PTH        0.75inch (19.04mm)
+T1      6mil (0.15mm)                                             Round             13        PTH        0.75inch (19.02mm)
 ----------------------------------------------------------------------------------------------------------------------------------
 Totals                                                                              13
 Layer Pair : Layer 3 to Bottom Layer
@@ -42,10 +44,10 @@ ASCII RoundHoles File : BLE_product-v1.2.TX4
 
 Tool       Hole Size               Hole Tolerance               Hole Type       Hole Count   Plated         Tool Travel
 ----------------------------------------------------------------------------------------------------------------------------------
-T1      6mil (0.15mm)                                             Round             12        PTH        0.67inch (16.97mm)
+T1      6mil (0.15mm)                                             Round             12        PTH        0.66inch (16.77mm)
 ----------------------------------------------------------------------------------------------------------------------------------
 Totals                                                                              12
 ----------------------------------------------------------------------------------------------------------------------------------
-Totals                                                                              97
+Totals                                                                              103
 
-Total Processing Time (hh:mm:ss) : 00:00:01
+Total Processing Time (hh:mm:ss) : 00:00:00

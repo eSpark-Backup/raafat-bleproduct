@@ -1,5 +1,5 @@
 ------------------------------------------------------------------------------------------
-Gerber File Extension Report For: BLE_product-v1.2.GBR   28/03/2024  11:42:55 am
+Gerber File Extension Report For: BLE_product-v1.2.GBR   15/08/2024  3:36:43 pm
 ------------------------------------------------------------------------------------------
 
 
@@ -29,4 +29,5 @@ Layer Extension     Layer Description
 .GG3                Drill Guide                             
 .GG4                Drill Guide                             
 .GG5                Drill Guide                             
+.GM                 Profile                                 
 ------------------------------------------------------------------------------------------
