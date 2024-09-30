@@ -205,3 +205,17 @@
         label = "MYSENSOR";
     };
 };
+
+&led3 {
+     gpios = <&gpio0 21 GPIO_ACTIVE_LOW>;
+};
+
+&uicr {
+    nfct-pins-as-gpios;
+};
+
+&i2c0_default {
+     group1 {
+          psels = <NRF_PSEL(TWIM_SDA, 0, 9)>, <NRF_PSEL(TWIM_SCL, 0, 10)>;
+     };
+};

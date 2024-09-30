@@ -27,8 +27,8 @@ raafat_data_t* raafat_data = NULL;
 int main(void)
 {
     /*config CLR_PWR as output and set high so that MCU powers up*/
-    nrf_gpio_cfg_output(RAAFAT_GPIO_CLR_PWR);
-    nrf_gpio_pin_set(RAAFAT_GPIO_CLR_PWR);
+    // nrf_gpio_cfg_output(RAAFAT_GPIO_CLR_PWR);
+    // nrf_gpio_pin_set(RAAFAT_GPIO_CLR_PWR);
 
 	printk("Raafat Hello World!\n");
 
