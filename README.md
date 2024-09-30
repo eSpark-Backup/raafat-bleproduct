@@ -3,7 +3,7 @@
 ## Version Table
 | S.No | Hardware Version | Stable Hardware Branch |Firmware revision |
 | -------- | ------- |------- |------- |
-| 1 | BLE Product v1.2 | Development-v1.2 | v1.1.0 |
+| 1 | BLE Product v1.1 | Development-v1.1-(Power-Jack-Moved) | v1.0.0 |
 
 ## Project Requirements
 Develop a BLE project that includes PCB design as well as the firmware. Components of the design include:
