@@ -1,5 +1,10 @@
 # raafat-BLEproduct
 
+## Version Table
+| S.No | Hardware Version | Stable Hardware Branch |Firmware revision |
+| -------- | ------- |------- |------- |
+| 1 | BLE Product v1.2 | Development-v1.2 | v1.1 |
+
 Develop a BLE project that includes PCB design as well as the firmware. Components of the design include:
 
 - Input of external 5 analog sensors through connector with 5V voltage output.
