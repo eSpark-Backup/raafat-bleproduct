@@ -206,6 +206,15 @@
     };
 };
 
+&i2c0 {
+    fuel_guage: fuel_guage@55{
+        compatible = "i2c-device";
+        reg = <0x55>;
+        label = "FUEL_GUAGE";
+    };
+};
+
+
 &led3 {
      gpios = <&gpio0 21 GPIO_ACTIVE_LOW>;
 };

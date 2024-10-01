@@ -17,5 +17,6 @@ add_subdirectory(src/raafat-bmm150)
 add_subdirectory(src/raafat-rgb)
 add_subdirectory(src/bmi323)
 add_subdirectory(src/cJSON)
+add_subdirectory(src/bq27426)
 
 
