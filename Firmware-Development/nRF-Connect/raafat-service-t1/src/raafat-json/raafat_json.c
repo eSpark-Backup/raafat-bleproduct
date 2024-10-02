@@ -22,14 +22,14 @@ int raafat_json_stringify_data(raafat_data_t* new_raafat_data)
     cJSON_AddNumberToObject(adc_values, "AN3", new_raafat_data->an2);
     cJSON_AddNumberToObject(adc_values, "AN4", new_raafat_data->an3);
     cJSON_AddNumberToObject(adc_values, "AN5", new_raafat_data->an4);
-    cJSON_AddItemToObject(adc, "values", adc_values);
+    cJSON_AddItemToObject(adc, "val", adc_values);
 
 
 
     #ifdef CONFIG_BT_RAAFAT_ENABLE_GYRO_PACKET
     // Create gyro object
     cJSON *gyro = cJSON_CreateObject();
-    cJSON_AddItemToObject(root, "gyroscope", gyro);
+    cJSON_AddItemToObject(root, "gyro", gyro);
     cJSON_AddStringToObject(gyro, "scale", "raw");
 
     // Add gyro values
@@ -37,13 +37,13 @@ int raafat_json_stringify_data(raafat_data_t* new_raafat_data)
     cJSON_AddNumberToObject(gyroscope_values, "gyro_x", new_raafat_data->gyroX_val1);
     cJSON_AddNumberToObject(gyroscope_values, "gyro_y", new_raafat_data->gyroY_val1);
     cJSON_AddNumberToObject(gyroscope_values, "gyro_z", new_raafat_data->gyroZ_val1);
-    cJSON_AddItemToObject(gyro, "values", gyroscope_values);
+    cJSON_AddItemToObject(gyro, "val", gyroscope_values);
     #endif
 
     #ifdef CONFIG_BT_RAAFAT_ENABLE_ACCEL_PACKET
     // Create accelerometer object
     cJSON *accelerometer = cJSON_CreateObject();
-    cJSON_AddItemToObject(root, "accelerometer", accelerometer);
+    cJSON_AddItemToObject(root, "accelero", accelerometer);
     cJSON_AddStringToObject(accelerometer, "scale", "raw");
 
     // Add accelerometer values
@@ -61,13 +61,13 @@ int raafat_json_stringify_data(raafat_data_t* new_raafat_data)
     cJSON_AddNumberToObject(accelerometer_values, "accel_y", new_raafat_data->accY_val1);
     cJSON_AddNumberToObject(accelerometer_values, "accel_z", new_raafat_data->accZ_val1);
     
-    cJSON_AddItemToObject(accelerometer, "values", accelerometer_values);
+    cJSON_AddItemToObject(accelerometer, "val", accelerometer_values);
     #endif
 
     #ifdef CONFIG_BT_RAAFAT_ENABLE_MAGN_PACKET
     // Create magnetometer object
     cJSON *magnetometer = cJSON_CreateObject();
-    cJSON_AddItemToObject(root, "magnetometer", magnetometer);
+    cJSON_AddItemToObject(root, "magneto", magnetometer);
     cJSON_AddStringToObject(magnetometer, "scale", "raw");
 
     // Add magnetometer values
@@ -89,7 +89,7 @@ int raafat_json_stringify_data(raafat_data_t* new_raafat_data)
     cJSON_AddNumberToObject(magnetometer_values, "mag_y", new_raafat_data->magY_val1 );
     cJSON_AddNumberToObject(magnetometer_values, "mag_z", new_raafat_data->magZ_val1 );
 
-    cJSON_AddItemToObject(magnetometer, "values", magnetometer_values);
+    cJSON_AddItemToObject(magnetometer, "val", magnetometer_values);
     #endif
 
     /* RGB data */
@@ -103,9 +103,20 @@ int raafat_json_stringify_data(raafat_data_t* new_raafat_data)
     // cJSON_AddNumberToObject(temp, "value", (uint16_t)(((uint16_t)new_raafat_data->temp_h << 8) | ((uint16_t)new_raafat_data->temp_l)));
     cJSON_AddStringToObject(temp,"scale","raw");
     cJSON *temp_values = cJSON_CreateObject();
-    cJSON_AddItemToObject(temp,"values", temp_values);
+    cJSON_AddItemToObject(temp,"val", temp_values);
     cJSON_AddNumberToObject(temp_values, "temp_h", new_raafat_data->temp_h);
     cJSON_AddNumberToObject(temp_values, "temp_l", new_raafat_data->temp_l);
+
+    /* Battery Stats */
+    cJSON *bettery_stats = cJSON_CreateObject();
+    cJSON_AddItemToObject(root,"battery", bettery_stats);
+    cJSON_AddNumberToObject(bettery_stats, "voltage", new_raafat_data->voltage_mv);
+    cJSON_AddNumberToObject(bettery_stats, "current", new_raafat_data->current_consumption);
+    cJSON_AddNumberToObject(bettery_stats, "health", new_raafat_data->battery_health);
+    cJSON_AddNumberToObject(bettery_stats, "capacitiy", new_raafat_data->battery_capacity);
+    cJSON_AddNumberToObject(bettery_stats, "power", new_raafat_data->power_consumption);
+    cJSON_AddBoolToObject(bettery_stats, "charging", (new_raafat_data->current_consumption > 0));
+
 
     // Print the JSON packet
     char *json_packet = cJSON_PrintUnformatted(root);

@@ -48,6 +48,13 @@ typedef struct raafat_data_s{
 	uint8_t temp_h;
 	uint8_t temp_l;
 
+	/* Battery Stats */
+	unsigned int voltage_mv;
+	unsigned int battery_capacity;
+	int current_consumption;
+	int power_consumption;
+	int battery_health;
+
 }raafat_data_t;
 
 #ifdef __cplusplus
