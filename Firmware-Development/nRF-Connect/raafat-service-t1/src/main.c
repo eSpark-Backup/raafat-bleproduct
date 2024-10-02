@@ -52,7 +52,7 @@ void setupBQ27441(void)
   setCapacity(BATTERY_CAPACITY);
 }
 
-void printBatteryStats()
+void readBatteryStats()
 {
   // Read battery stats from the BQ27441-G1A
 //   unsigned int soc = soc(UNFILTERED); // Read state-of-charge (%)
@@ -78,12 +78,12 @@ int main(void)
 {
 	  printk("Raafat Hello World!\n");
 
-    setupBQ27441();
 
     /* allocate memory for storing raafat data */
     raafat_data = (raafat_data_t*)malloc(sizeof(struct raafat_data_s));
 
     /* Raafat BLE service initialization*/
+    setupBQ27441();
 	  raafat_service_init();
     raafat_adc_init();
     raafat_bmm150_init();
@@ -92,21 +92,11 @@ int main(void)
 
     raafat_data->raafat_json_packet = raafat_service_get_json_packet_ptr();
 
-    /* read adc, bmm150, bmi323 and store in raafat data before stringify*/
-    raafat_adc_read(raafat_data);
-    raafat_bmm150_read(raafat_data);
-    bmi323_read_acc();
-    bmi323_read_gyro();
-    bmi323_read_temp();
-
-    /* stringify inital raafat data*/
-    raafat_json_stringify_data(raafat_data);
-
 	for (;;) {
         /* read and update json packet every interval */
         
         printk("====================================\n");
-        printBatteryStats();
+        readBatteryStats();
 
         raafat_adc_read(raafat_data);
         raafat_bmm150_read(raafat_data);
